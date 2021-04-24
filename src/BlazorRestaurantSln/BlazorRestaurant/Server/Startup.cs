@@ -1,7 +1,9 @@
 using BlazorRestaurant.DataAccess.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using System;
 using System.Linq;
 
 namespace BlazorRestaurant.Server
@@ -79,6 +82,40 @@ namespace BlazorRestaurant.Server
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseExceptionHandler(cfg =>
+            {
+                cfg.Run(async context =>
+                {
+                    var exceptionHandlerPathFeature =
+                    context.Features.Get<IExceptionHandlerPathFeature>();
+                    var error = exceptionHandlerPathFeature.Error;
+                    if (error != null)
+                    {
+                        try
+                        {
+                            var connectionString = Configuration.GetConnectionString("Default");
+                            DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
+                            new DbContextOptionsBuilder<BlazorRestaurantDbContext>();
+                            BlazorRestaurantDbContext foodInfoDbContext =
+                            new BlazorRestaurantDbContext(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
+                            await foodInfoDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
+                            {
+                                CreatedAt = DateTimeOffset.UtcNow,
+                                FullException = error.ToString(),
+                                StackTrace = error.StackTrace,
+                                Message = error.Message
+                            });
+                            await foodInfoDbContext.SaveChangesAsync();
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                    }
+                    await context.Response.WriteAsync(error.Message);
+                });
+            });
 
             app.UseHttpsRedirection();
             app.UseBlazorFrameworkFiles();
