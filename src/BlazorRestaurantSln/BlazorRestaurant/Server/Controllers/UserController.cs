@@ -2,6 +2,7 @@
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
