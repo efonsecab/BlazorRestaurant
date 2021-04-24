@@ -351,3 +351,4 @@ MigrationBackup/
 
 # User-Defined Files
 appsettings.Development.json
+efpt.config.json

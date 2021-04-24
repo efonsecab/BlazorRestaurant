@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BlazorRestaurant.Server</name>
+    </assembly>
+    <members>
+        <member name="T:BlazorRestaurant.Server.AutoMapperProfiles.GlobalMappingProfile">
+            <summary>
+            Global Autmapper Configuration
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.AutoMapperProfiles.GlobalMappingProfile.#ctor">
+            <summary>
+            Sets how types are going to be mapped by AutoMapper
+            </summary>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.UserController">
+            <summary>
+            HandlesIn charge of users management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.UserController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.UserController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext">Database context</param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.UserController.UserLoggedIn(BlazorRestaurant.Shared.User.UserModel)">
+            <summary>
+            Creates a new user record if this is the first time logging in, otherwise, updates the AD values in case 
+            they have been changed
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.WeatherForecastController">
+            <summary>
+            Default sample
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{BlazorRestaurant.Server.Controllers.WeatherForecastController})">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.WeatherForecastController"/>
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.WeatherForecastController.Get">
+            <summary>
+            Executes the Get Request
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Pages.ErrorModel">
+            <summary>
+            Displays Errors
+            </summary>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Pages.ErrorModel.RequestId">
+            <summary>
+            Request Id
+            </summary>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Pages.ErrorModel.ShowRequestId">
+            <summary>
+            Decides if Request Id should be shown or not
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Pages.ErrorModel.#ctor(Microsoft.Extensions.Logging.ILogger{BlazorRestaurant.Server.Pages.ErrorModel})">
+            <summary>
+            Creates a new instnce of <see cref="T:BlazorRestaurant.Server.Pages.ErrorModel"/>
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Pages.ErrorModel.OnGet">
+            <summary>
+            Execute the Get Request
+            </summary>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Program">
+            <summary>
+            Application Entry class
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Program.Main(System.String[])">
+            <summary>
+            Application Entry point
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Application Initializer
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Startup">
+            <summary>
+            Application Configuration
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Createsa new instance of <see cref="T:BlazorRestaurant.Server.Startup"/>
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Startup.Configuration">
+            <summary>
+            Configuration container
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configured application services
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configures Application
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
