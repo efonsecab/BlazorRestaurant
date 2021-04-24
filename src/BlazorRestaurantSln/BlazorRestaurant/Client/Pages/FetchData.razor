@@ -1,5 +1,8 @@
 ﻿@page "/fetchdata"
 @using BlazorRestaurant.Shared
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@attribute [Authorize]
 @inject HttpClient Http
 
 <h1>Weather forecast</h1>
@@ -40,7 +43,13 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        try
+        {
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
     }
-
 }

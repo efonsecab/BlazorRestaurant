@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.Server", "BlazorRestaurant\Server\BlazorRestaurant.Server.csproj", "{5A1CED1D-A275-4997-A439-66FCB51549DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Server", "BlazorRestaurant\Server\BlazorRestaurant.Server.csproj", "{5A1CED1D-A275-4997-A439-66FCB51549DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.Client", "BlazorRestaurant\Client\BlazorRestaurant.Client.csproj", "{600F44BA-BB2F-467D-9760-0973C29BF683}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Client", "BlazorRestaurant\Client\BlazorRestaurant.Client.csproj", "{600F44BA-BB2F-467D-9760-0973C29BF683}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.Shared", "BlazorRestaurant\Shared\BlazorRestaurant.Shared.csproj", "{D59D01B6-B262-4C68-892F-4E93BCDD00CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Shared", "BlazorRestaurant\Shared\BlazorRestaurant.Shared.csproj", "{D59D01B6-B262-4C68-892F-4E93BCDD00CD}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BlazorRestaurantDatabase", "BlazorRestaurantDatabase\BlazorRestaurantDatabase.sqlproj", "{661C4137-1D20-449D-8E65-5AA1989769BB}"
 EndProject
