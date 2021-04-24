@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace BlazorRestaurant.Server.Controllers
 {
+    /// <summary>
+    /// Default sample
+    /// </summary>
     [ApiController]
     [Route("[controller]")]
     [Authorize]
@@ -20,12 +23,20 @@ namespace BlazorRestaurant.Server.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        /// <summary>
+        /// Creates a new instance of <see cref="WeatherForecastController"/>
+        /// </summary>
+        /// <param name="logger"></param>
 
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
         }
 
+        /// <summary>
+        /// Executes the Get Request
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {

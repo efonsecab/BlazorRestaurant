@@ -1,8 +1,10 @@
+using BlazorRestaurant.DataAccess.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,19 +13,38 @@ using System.Linq;
 
 namespace BlazorRestaurant.Server
 {
+    /// <summary>
+    /// Application Configuration
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Createsa new instance of <see cref="Startup"/>
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration container
+        /// </summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Configured application services
+        /// </summary>
+        /// <param name="services"></param>
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<BlazorRestaurantDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
             services.Configure<JwtBearerOptions>(
@@ -31,10 +52,19 @@ namespace BlazorRestaurant.Server
                 {
                     options.TokenValidationParameters.NameClaimType = "name";
                 });
+            services.AddAutoMapper(configAction =>
+            {
+                configAction.AddMaps(new[] { typeof(Startup).Assembly });
+            });
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
+        /// <summary>
+        /// Configures Application
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="env"></param>
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

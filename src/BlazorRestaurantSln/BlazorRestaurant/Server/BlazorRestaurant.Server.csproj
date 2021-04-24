@@ -7,14 +7,18 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors>;NU1605</WarningsAsErrors>
+    <DocumentationFile>BlazorRestaurant.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="5.0.5" />
     <PackageReference Include="Microsoft.Identity.Web" Version="1.9.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BlazorRestaurant.DataAccess\BlazorRestaurant.DataAccess.csproj" />
     <ProjectReference Include="..\Client\BlazorRestaurant.Client.csproj" />
     <ProjectReference Include="..\Shared\BlazorRestaurant.Shared.csproj" />
   </ItemGroup>

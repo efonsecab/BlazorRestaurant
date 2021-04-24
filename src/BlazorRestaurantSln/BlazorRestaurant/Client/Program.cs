@@ -1,3 +1,4 @@
+using BlazorRestaurant.Client.CustomClaims;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,13 +26,15 @@ namespace BlazorRestaurant.Client
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient($"{assemblyName}.ServerAPI"));
 
-            builder.Services.AddMsalAuthentication(options =>
+            builder.Services.AddMsalAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
                 builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
                 var scopeUri = builder.Configuration.GetValue<string>("AzureAdB2CScope");
                 options.ProviderOptions.DefaultAccessTokenScopes.Add(scopeUri);
                 options.ProviderOptions.LoginMode = "redirect";
-            });
+            }).AddAccountClaimsPrincipalFactory<
+                RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory
+                >();
 
 
             await builder.Build().RunAsync();
