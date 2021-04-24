@@ -1,7 +1,32 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<h2>Promos</h2>
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="card-group">
+    <PromoCard CardTitle="Pizza"
+               CardBodyText="The best salami pizza ever made">
+        <Image>
+            <img src="images/promos/pizza-329523_1280.jpg" class="card-img-top" alt="..." style="height:300px;">
+        </Image>
+    </PromoCard>
+    <PromoCard CardTitle="Lasagna"
+               CardBodyText="The best lasagna ever made">
+        <Image>
+            <img src="images/promos/meal-2069021_1280.jpg" class="card-img-top" alt="..." style="height:300px;">
+        </Image>
+    </PromoCard>
+</div>
+<div class="card-group">
+    <PromoCard CardTitle="Grilled Chicken"
+               CardBodyText="Delicious Grilled Chicken!!!">
+        <Image>
+            <img src="images/promos/grilled-chicken-1334632_1280.jpg" class="card-img-top" alt="..." style="height:300px;">
+        </Image>
+    </PromoCard>
+    <PromoCard CardTitle="Sandwich"
+               CardBodyText="The best Sandwich in Town">
+        <Image>
+            <img src="images/promos/egg-1615790_1280.jpg" class="card-img-top" alt="..." style="height:300px;">
+        </Image>
+    </PromoCard>
+</div>

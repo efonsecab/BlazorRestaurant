@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Shared", "
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BlazorRestaurantDatabase", "BlazorRestaurantDatabase\BlazorRestaurantDatabase.sqlproj", "{661C4137-1D20-449D-8E65-5AA1989769BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.DataAccess", "BlazorRestaurant.DataAccess\BlazorRestaurant.DataAccess.csproj", "{9785C19A-9A77-4956-97CC-D1C91A8C8DA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.DataAccess", "BlazorRestaurant.DataAccess\BlazorRestaurant.DataAccess.csproj", "{9785C19A-9A77-4956-97CC-D1C91A8C8DA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
