@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="0d9d130c-041f-4980-819e-4c843052702a" ChangeDateTime="04/25/2021 14:18:46">
+    <Property Name="ElementName" Value="[dbo].[ApplicationRole].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ApplicationRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApplicationRoleId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0666244c-e4a8-4878-95ca-5dd39ecea013" ChangeDateTime="04/25/2021 14:19:44">
+    <Property Name="ElementName" Value="[dbo].[ApplicationUser].[Full Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ApplicationUser]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FullName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c99fa5f1-d72b-451d-b5f8-48b12fc0b2ad" ChangeDateTime="04/25/2021 14:58:06">
+    <Property Name="ElementName" Value="[dbo].[ApplicationUserRole].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ApplicationUserRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApplicationUserRoleId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ebcd8929-003e-45a5-8436-86b4b63dff9f" ChangeDateTime="04/25/2021 14:59:22">
+    <Property Name="ElementName" Value="[dbo].[ApplicationUserRole].[ApplicationRole]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ApplicationUserRole]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ApplicationRoleId" />
+  </Operation>
+</Operations>

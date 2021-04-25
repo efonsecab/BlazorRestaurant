@@ -50,6 +50,11 @@ namespace BlazorRestaurant.Server.Controllers
             {
                 userEntity = this.Mapper.Map<UserModel, ApplicationUser>(model);
                 userEntity.LastLogIn = DateTimeOffset.UtcNow;
+                var userRole = await this.BlazorRestaurantDbContext.ApplicationRole.SingleAsync(p => p.Name == "User");
+                userEntity.ApplicationUserRole = new ApplicationUserRole()
+                {
+                    ApplicationRole = userRole
+                };
                 await this.BlazorRestaurantDbContext.ApplicationUser.AddAsync(userEntity);
             }
             else
