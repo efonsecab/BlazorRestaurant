@@ -27,10 +27,14 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         {
             using (BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext())
             {
-                var testUserEntity = await blazorRestaurantDbContext.ApplicationUser.Where(p => p.FullName == TestUserModel.FullName
+                var testUserEntity = await blazorRestaurantDbContext.ApplicationUser
+                    .Include(p=>p.ApplicationUserRole)
+                    .Where(p => p.FullName == TestUserModel.FullName
                 && p.AzureAdB2cobjectId == TestUserModel.AzureAdB2cobjectId).SingleOrDefaultAsync();
                 if (testUserEntity != null)
                 {
+                    if (testUserEntity.ApplicationUserRole != null)
+                        blazorRestaurantDbContext.ApplicationUserRole.Remove(testUserEntity.ApplicationUserRole);
                     blazorRestaurantDbContext.ApplicationUser.Remove(testUserEntity);
                     await blazorRestaurantDbContext.SaveChangesAsync();
                 }

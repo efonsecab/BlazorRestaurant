@@ -15,7 +15,6 @@ namespace BlazorRestaurant.DataAccess.Models
         [Key]
         public long ApplicationUserId { get; set; }
         [Required]
-        [Column("Full Name")]
         [StringLength(150)]
         public string FullName { get; set; }
         [Required]
@@ -24,5 +23,8 @@ namespace BlazorRestaurant.DataAccess.Models
         public DateTimeOffset LastLogIn { get; set; }
         [Column("AzureAdB2CObjectId")]
         public Guid AzureAdB2cobjectId { get; set; }
+
+        [InverseProperty("ApplicationUser")]
+        public virtual ApplicationUserRole ApplicationUserRole { get; set; }
     }
 }
