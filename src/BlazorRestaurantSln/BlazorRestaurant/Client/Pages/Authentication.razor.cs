@@ -19,8 +19,16 @@ namespace BlazorRestaurant.Client.Pages
         private HttpClient HttpClient { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; }
+        private bool IsProcessingOnLogInSucceeded { get; set; } = false;
         public async void OnLogInSucceeded()
         {
+            ///Workaround to avoid the framwework bug of inoking this up to 3 times
+            if (IsProcessingOnLogInSucceeded)
+                return;
+            else
+            {
+                IsProcessingOnLogInSucceeded = true;
+            }
             var authState = await AuthenticationStateTask;
             UserModel userModel = new UserModel()
             {
