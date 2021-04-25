@@ -64,5 +64,21 @@ namespace BlazorRestaurant.Server.Controllers
             await this.BlazorRestaurantDbContext.SaveChangesAsync();
             return Ok();
         }
+
+        /// <summary>
+        /// Gets the name of the role assigned to the specified user
+        /// </summary>
+        /// <param name="userAdB2CObjectId"></param>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<string> GetUserRole(Guid userAdB2CObjectId)
+        {
+            var role = await this.BlazorRestaurantDbContext.ApplicationUserRole
+                .Include(p => p.ApplicationUser)
+                .Include(p => p.ApplicationRole)
+                .Where(p => p.ApplicationUser.AzureAdB2cobjectId == userAdB2CObjectId)
+                .Select(p => p.ApplicationRole.Name).SingleAsync();
+            return role;
+        }
     }
 }

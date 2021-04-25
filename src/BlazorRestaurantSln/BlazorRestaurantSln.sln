@@ -13,7 +13,7 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BlazorRestaurantDatabase", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.DataAccess", "BlazorRestaurant.DataAccess\BlazorRestaurant.DataAccess.csproj", "{9785C19A-9A77-4956-97CC-D1C91A8C8DA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.Server.Tests", "BlazorRestaurant\BlazorRestaurant.Server.Tests\BlazorRestaurant.Server.Tests.csproj", "{3F6DF02C-A265-4D7D-9F4B-B8173E14FF9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Server.Tests", "BlazorRestaurant\BlazorRestaurant.Server.Tests\BlazorRestaurant.Server.Tests.csproj", "{3F6DF02C-A265-4D7D-9F4B-B8173E14FF9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

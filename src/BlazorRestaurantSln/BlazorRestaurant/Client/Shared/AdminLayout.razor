@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <div class="page">
+            <div class="sidebar">
+                <AdminMenu />
+            </div>
+
+            <div class="main">
+                <div class="top-row px-4">
+                    <LoginDisplay></LoginDisplay>
+                </div>
+
+                <div class="content px-4">
+                    @Body
+                </div>
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        You are not Authorized to access this content.
+        <a href="/">Go Back To Home Page</a>
+    </NotAuthorized>
+</AuthorizeView>
