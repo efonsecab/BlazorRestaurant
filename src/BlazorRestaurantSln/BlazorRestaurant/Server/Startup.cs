@@ -97,16 +97,16 @@ namespace BlazorRestaurant.Server
                             var connectionString = Configuration.GetConnectionString("Default");
                             DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
                             new DbContextOptionsBuilder<BlazorRestaurantDbContext>();
-                            BlazorRestaurantDbContext foodInfoDbContext =
+                            BlazorRestaurantDbContext blazorRestaurantDbContext =
                             new BlazorRestaurantDbContext(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
-                            await foodInfoDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
+                            await blazorRestaurantDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
                             {
                                 CreatedAt = DateTimeOffset.UtcNow,
                                 FullException = error.ToString(),
                                 StackTrace = error.StackTrace,
                                 Message = error.Message
                             });
-                            await foodInfoDbContext.SaveChangesAsync();
+                            await blazorRestaurantDbContext.SaveChangesAsync();
                         }
                         catch (Exception)
                         {
