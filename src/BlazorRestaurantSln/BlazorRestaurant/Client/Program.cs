@@ -32,6 +32,7 @@ namespace BlazorRestaurant.Client
                 var scopeUri = builder.Configuration.GetValue<string>("AzureAdB2CScope");
                 options.ProviderOptions.DefaultAccessTokenScopes.Add(scopeUri);
                 options.ProviderOptions.LoginMode = "redirect";
+                options.UserOptions.RoleClaim = "Role";
             }).AddAccountClaimsPrincipalFactory<
                 RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory
                 >();

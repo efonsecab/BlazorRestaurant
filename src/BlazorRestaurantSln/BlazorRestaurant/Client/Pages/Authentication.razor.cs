@@ -17,6 +17,8 @@ namespace BlazorRestaurant.Client.Pages
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
         [Inject]
         private HttpClient HttpClient { get; set; }
+        [Inject]
+        private NavigationManager NavigationManager { get; set; }
         public async void OnLogInSucceeded()
         {
             var authState = await AuthenticationStateTask;
@@ -31,6 +33,10 @@ namespace BlazorRestaurant.Client.Pages
             {
                 var error = await response.Content.ReadAsStringAsync();
                 throw new Exception(error);
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/Admin/Index");
             }
 
 

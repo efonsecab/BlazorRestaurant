@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Shared\BlazorRestaurant.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\User\" />
+  </ItemGroup>
+
 </Project>

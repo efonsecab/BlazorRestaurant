@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+﻿using BlazorRestaurant.Client.Extensions;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,19 @@ namespace BlazorRestaurant.Client.CustomClaims
             this.HttpClientFactory = httpClientFactory;
         }
 
-        public override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, 
+        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, 
             RemoteAuthenticationUserOptions options)
         {
-            var httpClient = this.HttpClientFactory.CreateClient();
-            return base.CreateUserAsync(account, options);
+            var userClaimsPrincipal = await base.CreateUserAsync(account, options);
+            if (userClaimsPrincipal.Identity.IsAuthenticated)
+            {
+                ClaimsIdentity claimsIdentity = userClaimsPrincipal.Identity as ClaimsIdentity;
+                var userObjectId = claimsIdentity.Claims.GetAzureAdB2CUserObjectId();
+                var httpClient = this.HttpClientFactory.CreateClient($"BlazorRestaurant.ServerAPI");
+                var userRole = await httpClient.GetStringAsync($"api/User/GetUserRole?userAdB2CObjectId={userObjectId}");
+                claimsIdentity.AddClaim(new Claim("Role", userRole));
+            }
+            return userClaimsPrincipal;
         }
     }
 }
