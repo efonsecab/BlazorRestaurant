@@ -1,4 +1,6 @@
+using BlazorRestaurant.Client.Configuration;
 using BlazorRestaurant.Client.CustomClaims;
+using BlazorRestaurant.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +39,11 @@ namespace BlazorRestaurant.Client
                 RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory
                 >();
 
+            Configuration.SiteConfiguration siteConfiguration = builder.Configuration.GetSection("SiteConfiguration")
+                .Get<SiteConfiguration>();
+            siteConfiguration ??= new SiteConfiguration();
+            builder.Services.AddSingleton(siteConfiguration);
+            builder.Services.AddScoped<ToastifyService>();
 
             await builder.Build().RunAsync();
         }

@@ -1,4 +1,6 @@
 using BlazorRestaurant.DataAccess.Data;
+using BlazorRestaurant.Server.Configuration;
+using BlazorRestaurant.Shared.CustomHttpResponses;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -11,6 +13,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Web;
+using PTI.Microservices.Library.Configuration;
+using PTI.Microservices.Library.Interceptors;
+using PTI.Microservices.Library.Services;
 using System;
 using System.Linq;
 
@@ -44,6 +49,7 @@ namespace BlazorRestaurant.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            GlobalPackageConfiguration.RapidApiKey = Configuration["PTIMicroservicesLibraryConfiguration:RapidApiKey"];
             services.AddDbContext<BlazorRestaurantDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
@@ -59,8 +65,35 @@ namespace BlazorRestaurant.Server
             {
                 configAction.AddMaps(new[] { typeof(Startup).Assembly });
             });
+
+            ConfigureDataStorage(services);
+            ConfigurePTIMicroservicesLibraryDefaults(services);
+            ConfigureAzureBlobStorage(services);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
+        }
+
+        private void ConfigureDataStorage(IServiceCollection services)
+        {
+            var dataStorageConfiguration = Configuration.GetSection(nameof(DataStorageConfiguration))
+                .Get<DataStorageConfiguration>();
+            services.AddSingleton(dataStorageConfiguration);
+        }
+
+        private static void ConfigurePTIMicroservicesLibraryDefaults(IServiceCollection services)
+        {
+            services.AddTransient<CustomHttpClientHandler>();
+            services.AddTransient<CustomHttpClient>();
+        }
+
+        private void ConfigureAzureBlobStorage(IServiceCollection services)
+        {
+            var azureBlobStorageConfiguration =
+                Configuration.GetSection($"AzureConfiguration:{nameof(AzureBlobStorageConfiguration)}")
+                .Get<AzureBlobStorageConfiguration>();
+            services.AddSingleton(azureBlobStorageConfiguration);
+            services.AddTransient<AzureBlobStorageService>();
         }
 
         /// <summary>
@@ -96,9 +129,9 @@ namespace BlazorRestaurant.Server
                         {
                             var connectionString = Configuration.GetConnectionString("Default");
                             DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
-                            new DbContextOptionsBuilder<BlazorRestaurantDbContext>();
+                            new();
                             BlazorRestaurantDbContext blazorRestaurantDbContext =
-                            new BlazorRestaurantDbContext(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
+                            new(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
                             await blazorRestaurantDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
                             {
                                 CreatedAt = DateTimeOffset.UtcNow,
@@ -113,7 +146,11 @@ namespace BlazorRestaurant.Server
 
                         }
                     }
-                    await context.Response.WriteAsync(error.Message);
+                    ProblemHttpResponse problemHttpResponse = new()
+                    {
+                        Detail = error.Message,
+                    };
+                    await context.Response.WriteAsJsonAsync<ProblemHttpResponse>(problemHttpResponse);
                 });
             });
 
