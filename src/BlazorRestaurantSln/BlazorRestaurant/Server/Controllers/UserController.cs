@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace BlazorRestaurant.Server.Controllers
 {
     /// <summary>
-    /// HandlesIn charge of users management
+    /// In charge of users management
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]

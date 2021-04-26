@@ -14,9 +14,49 @@
             Sets how types are going to be mapped by AutoMapper
             </summary>
         </member>
+        <member name="T:BlazorRestaurant.Server.Configuration.DataStorageConfiguration">
+            <summary>
+            Holds the the Data Storage configuration
+            </summary>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Configuration.DataStorageConfiguration.ImagesContainerName">
+            <summary>
+            Blob container where image files will be stored
+            </summary>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Configuration.DataStorageConfiguration.ImagesContainerUrl">
+            <summary>
+            Url for the Images Blob Container
+            </summary>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.ImageController">
+            <summary>
+            In charge of Images management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.#ctor(PTI.Microservices.Library.Services.AzureBlobStorageService,BlazorRestaurant.Server.Configuration.DataStorageConfiguration)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ImageController"/>
+            </summary>
+            <param name="azureBlobStorageService"></param>
+            <param name="dataStorageConfiguration"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.UploadImage(BlazorRestaurant.Shared.Images.ImageUploadModel)">
+            <summary>
+            Uploads a new image
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.ListImages">
+            <summary>
+            Lists all Images in the system
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.UserController">
             <summary>
-            HandlesIn charge of users management
+            In charge of users management
             </summary>
         </member>
         <member name="M:BlazorRestaurant.Server.Controllers.UserController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">

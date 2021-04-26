@@ -16,28 +16,27 @@ namespace BlazorRestaurant.Server.Controllers.Tests
     [TestClass]
     public class UserControllerTests : TestsBase
     {
-        private static UserModel TestUserModel = new UserModel()
+        private static readonly UserModel TestUserModel = new()
         {
             AzureAdB2cobjectId = Guid.NewGuid(),
             EmailAddress = "test@test.test",
             FullName = "AUTOMATED TEST USER"
         };
+
         [ClassCleanup]
         public static async Task CleanTests()
         {
-            using (BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext())
+            using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
+            var testUserEntity = await blazorRestaurantDbContext.ApplicationUser
+                .Include(p => p.ApplicationUserRole)
+                .Where(p => p.FullName == TestUserModel.FullName
+            && p.AzureAdB2cobjectId == TestUserModel.AzureAdB2cobjectId).SingleOrDefaultAsync();
+            if (testUserEntity != null)
             {
-                var testUserEntity = await blazorRestaurantDbContext.ApplicationUser
-                    .Include(p=>p.ApplicationUserRole)
-                    .Where(p => p.FullName == TestUserModel.FullName
-                && p.AzureAdB2cobjectId == TestUserModel.AzureAdB2cobjectId).SingleOrDefaultAsync();
-                if (testUserEntity != null)
-                {
-                    if (testUserEntity.ApplicationUserRole != null)
-                        blazorRestaurantDbContext.ApplicationUserRole.Remove(testUserEntity.ApplicationUserRole);
-                    blazorRestaurantDbContext.ApplicationUser.Remove(testUserEntity);
-                    await blazorRestaurantDbContext.SaveChangesAsync();
-                }
+                if (testUserEntity.ApplicationUserRole != null)
+                    blazorRestaurantDbContext.ApplicationUserRole.Remove(testUserEntity.ApplicationUserRole);
+                blazorRestaurantDbContext.ApplicationUser.Remove(testUserEntity);
+                await blazorRestaurantDbContext.SaveChangesAsync();
             }
         }
 

@@ -22,7 +22,7 @@ namespace BlazorRestaurant.Client.Pages
         private bool IsProcessingOnLogInSucceeded { get; set; } = false;
         public async void OnLogInSucceeded()
         {
-            ///Workaround to avoid the framwework bug of inoking this up to 3 times
+            ///Workaround to avoid the framwework bug of invoking this up to 3 times
             if (IsProcessingOnLogInSucceeded)
                 return;
             else
