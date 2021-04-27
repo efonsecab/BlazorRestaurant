@@ -18,11 +18,17 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
     public partial class Manage
     {
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private HttpClientService HttpClientService { get; set; }
         [Inject]
         private ToastifyService ToastifyService { get; set; }
+        private HttpClient AuthorizedHttpClient { get; set; }
         private ImageUploadModel ImageUploadModel { get; set; } = new ImageUploadModel();
         private string ErrorMessage { get; set; }
+
+        protected override void OnInitialized()
+        {
+            this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+        }
 
         private async Task OnFileSelectionChangeAsync(InputFileChangeEventArgs e)
         {
@@ -45,7 +51,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         {
             try
             {
-                var response = await this.HttpClient.PostAsJsonAsync<ImageUploadModel>("api/Image/UploadImage",
+                var response = await this.AuthorizedHttpClient.PostAsJsonAsync<ImageUploadModel>("api/Image/UploadImage",
                     this.ImageUploadModel);
                 if (!response.IsSuccessStatusCode)
                 {

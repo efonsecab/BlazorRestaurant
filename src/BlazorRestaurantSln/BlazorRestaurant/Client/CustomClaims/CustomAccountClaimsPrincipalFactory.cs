@@ -1,4 +1,5 @@
 ﻿using BlazorRestaurant.Client.Extensions;
+using BlazorRestaurant.Client.Services;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using System;
@@ -13,13 +14,13 @@ namespace BlazorRestaurant.Client.CustomClaims
     public class CustomAccountClaimsPrincipalFactory: AccountClaimsPrincipalFactory<CustomRemoteUserAccount>
     {
         private IAccessTokenProviderAccessor Accessor { get; }
-        private IHttpClientFactory HttpClientFactory { get; }
+        private HttpClientService HttpClientService { get; }
 
         public CustomAccountClaimsPrincipalFactory(IAccessTokenProviderAccessor accessor,
-            IHttpClientFactory httpClientFactory) :base(accessor)
+            HttpClientService httpClientService) :base(accessor)
         {
             this.Accessor = accessor;
-            this.HttpClientFactory = httpClientFactory;
+            this.HttpClientService = httpClientService;
         }
 
         public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, 
@@ -30,7 +31,7 @@ namespace BlazorRestaurant.Client.CustomClaims
             {
                 ClaimsIdentity claimsIdentity = userClaimsPrincipal.Identity as ClaimsIdentity;
                 var userObjectId = claimsIdentity.Claims.GetAzureAdB2CUserObjectId();
-                var httpClient = this.HttpClientFactory.CreateClient($"BlazorRestaurant.ServerAPI");
+                var httpClient = this.HttpClientService.CreatedAuthorizedClient();
                 var userRole = await httpClient.GetStringAsync($"api/User/GetUserRole?userAdB2CObjectId={userObjectId}");
                 claimsIdentity.AddClaim(new Claim("Role", userRole));
             }

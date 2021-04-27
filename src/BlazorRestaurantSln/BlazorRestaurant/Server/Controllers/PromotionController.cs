@@ -2,8 +2,10 @@
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.Promos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PromotionController : ControllerBase
     {
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
@@ -43,6 +46,19 @@ namespace BlazorRestaurant.Server.Controllers
             var entity = Mapper.Map<PromotionModel, Promotion>(model);
             await this.BlazorRestaurantDbContext.AddAsync(entity);
             await this.BlazorRestaurantDbContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Lists all Promotions
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [AllowAnonymous]
+        public async Task<PromotionModel[]> ListPromotions()
+        {
+            var result = await this.BlazorRestaurantDbContext.Promotion.Select(p =>
+            this.Mapper.Map<Promotion, PromotionModel>(p)).ToArrayAsync();
+            return result;
         }
     }
 }

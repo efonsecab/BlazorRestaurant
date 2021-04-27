@@ -43,5 +43,21 @@ namespace BlazorRestaurant.Server.Controllers.Tests
                 Assert.Fail(content);
             }
         }
+
+        [TestMethod()]
+        public async Task ListPromotionsTest()
+        {
+            using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
+            blazorRestaurantDbContext.Promotion.Add(new DataAccess.Models.Promotion()
+            {
+                Name = TestPromotionModel.Name,
+                Description = TestPromotionModel.Description,
+                ImageUrl = TestPromotionModel.ImageUrl
+            });
+            await blazorRestaurantDbContext.SaveChangesAsync();
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var response = await authorizedHttpClient.GetFromJsonAsync<PromotionModel[]>("api/Promotion/ListPromotions");
+            Assert.IsTrue(response.Length > 0);
+        }
     }
 }

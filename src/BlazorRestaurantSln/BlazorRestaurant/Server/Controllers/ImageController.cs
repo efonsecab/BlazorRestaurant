@@ -1,5 +1,6 @@
 ﻿using BlazorRestaurant.Server.Configuration;
 using BlazorRestaurant.Shared.Images;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PTI.Microservices.Library.Services;
@@ -16,6 +17,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ImageController : ControllerBase
     {
         private AzureBlobStorageService AzureBlobStorageService { get; }

@@ -1,4 +1,5 @@
 ﻿using BlazorRestaurant.Client.Extensions;
+using BlazorRestaurant.Client.Services;
 using BlazorRestaurant.Shared.User;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -16,10 +17,11 @@ namespace BlazorRestaurant.Client.Pages
         [CascadingParameter]
         private Task<AuthenticationState> AuthenticationStateTask { get; set; }
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private HttpClientService HttpClientService { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         private bool IsProcessingOnLogInSucceeded { get; set; } = false;
+
         public async void OnLogInSucceeded()
         {
             ///Workaround to avoid the framwework bug of invoking this up to 3 times
@@ -36,7 +38,8 @@ namespace BlazorRestaurant.Client.Pages
                 FullName = authState.User.Claims.GetDisplayName(),
                 AzureAdB2cobjectId = Guid.Parse(authState.User.Claims.GetAzureAdB2CUserObjectId())
             };
-            var response = await this.HttpClient.PostAsJsonAsync<UserModel>("api/User/UserLoggedIn", userModel);
+            var authorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+            var response = await authorizedHttpClient.PostAsJsonAsync<UserModel>("api/User/UserLoggedIn", userModel);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
