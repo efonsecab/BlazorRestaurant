@@ -34,6 +34,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
 
         private bool ShowSelectImageComponent { get; set; } = false;
         private HttpClient AuthorizedHttpClient { get; set; }
+        private bool IsLoading { get; set; }
 
         protected override void OnInitialized()
         {
@@ -56,6 +57,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
         {
             try
             {
+                this.IsLoading = true;
                 var response = await AuthorizedHttpClient.PostAsJsonAsync("api/Promotion/AddPromotion", this.PromotionModel);
                 if (!response.IsSuccessStatusCode)
                 {
@@ -71,6 +73,10 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
             catch (Exception ex)
             {
                 await ToastifyService.DisplayErrorNotification(ex.Message);
+            }
+            finally
+            {
+                this.IsLoading = false;
             }
         }
     }

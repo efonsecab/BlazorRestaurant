@@ -20,12 +20,14 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         private ToastifyService ToastifyService { get; set; }
         private HttpClient AuthorizedHttpClient { get; set; }
         private ImageModel[] AllImages { get; set; }
+        private bool IsLoading { get; set; } = false;
 
 
         protected async override Task OnInitializedAsync()
         {
             try
             {
+                this.IsLoading = true;
                 this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
                 this.AllImages = await this.AuthorizedHttpClient.GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             }
@@ -35,7 +37,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
             }
             finally
             {
-
+                this.IsLoading = false;
             }
         }
     }

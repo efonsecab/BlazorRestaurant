@@ -24,6 +24,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         private HttpClient AuthorizedHttpClient { get; set; }
         private ImageUploadModel ImageUploadModel { get; set; } = new ImageUploadModel();
         private string ErrorMessage { get; set; }
+        private bool IsLoading { get; set; }
 
         protected override void OnInitialized()
         {
@@ -34,6 +35,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         {
             try
             {
+                this.IsLoading = true;
                 int maxFileSize = 5120000; //5 MB
                 var fileStream = e.File.OpenReadStream(maxAllowedSize: maxFileSize);
                 using MemoryStream memoryStream = new();
@@ -45,12 +47,17 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
             {
                 this.ErrorMessage = ex.Message;
             }
+            finally
+            {
+                this.IsLoading = false;
+            }
         }
 
         private async Task OnValidSubmit()
         {
             try
             {
+                this.IsLoading = true;
                 var response = await this.AuthorizedHttpClient.PostAsJsonAsync<ImageUploadModel>("api/Image/UploadImage",
                     this.ImageUploadModel);
                 if (!response.IsSuccessStatusCode)
@@ -74,6 +81,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
                 {
                     await ToastifyService.DisplayErrorNotification(this.ErrorMessage);
                 }
+                this.IsLoading = false;
             }
         }
     }

@@ -19,10 +19,12 @@ namespace BlazorRestaurant.Client.Pages
         public HttpClient AnonymousHttpClient { get; private set; }
         private PromotionModel[] AllPromotions { get;  set; }
         private int TotalPages => this.AllPromotions == null?0: (int)Math.Ceiling( (double)this.AllPromotions.Length / 2);
+        private bool IsLoading { get; set; } = false;
         protected async override Task OnInitializedAsync()
         {
             try
             {
+                this.IsLoading = true;
                 this.AnonymousHttpClient = this.HttpClientService.CreatedAnonymousClient();
                 this.AllPromotions = await AnonymousHttpClient.GetFromJsonAsync<PromotionModel[]>("api/Promotion/ListPromotions");
             }
@@ -32,7 +34,7 @@ namespace BlazorRestaurant.Client.Pages
             }
             finally
             {
-
+                IsLoading = false;
             }
         }
     }
