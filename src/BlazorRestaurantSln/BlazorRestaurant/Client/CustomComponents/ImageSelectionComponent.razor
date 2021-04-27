@@ -1,0 +1,17 @@
+﻿<h3>Select an image</h3>
+@if (AllImages != null)
+{
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        @foreach (var singleImage in this.AllImages)
+        {
+            <div class="col">
+                <div class="card" style="cursor:pointer;" @onclick="@( ()=> SelectImage(singleImage))">
+                    <img src="@singleImage.ImageUrl" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@singleImage.ImageName</h5>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

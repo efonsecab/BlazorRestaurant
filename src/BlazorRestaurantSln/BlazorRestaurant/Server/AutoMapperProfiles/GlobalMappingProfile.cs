@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.Promos;
 using BlazorRestaurant.Shared.User;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
         public GlobalMappingProfile()
         {
             this.CreateMap<UserModel, ApplicationUser>().ReverseMap();
+
+            this.CreateMap<PromotionModel, Promotion>().ReverseMap();
         }
     }
 }

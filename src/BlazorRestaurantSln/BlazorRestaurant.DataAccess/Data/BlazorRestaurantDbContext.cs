@@ -23,6 +23,7 @@ namespace BlazorRestaurant.DataAccess.Data
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
         public virtual DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
+        public virtual DbSet<Promotion> Promotion { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
