@@ -2,6 +2,46 @@
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <RemoteAuthenticatorView Action="@Action" OnLogInSucceeded="@OnLogInSucceeded">
+    <CompletingLoggingIn>
+        <LoadingComponent IsLoading="true"></LoadingComponent>
+        <h1>Completing Logging In </h1>
+    </CompletingLoggingIn>
+    <CompletingLogOut>
+        <LoadingComponent IsLoading="true"></LoadingComponent>
+        <h1>Completing Log Out</h1>
+    </CompletingLogOut>
+    <LoggingIn>
+        <LoadingComponent IsLoading="true"></LoadingComponent>
+        <h1>Logging In</h1>
+    </LoggingIn>
+    <LogInFailed>
+        <h1 style="color:red;">
+            Login Failed
+        </h1>
+    </LogInFailed>
+    <LogOut>
+        <LoadingComponent IsLoading="true"></LoadingComponent>
+        <h1>Log Out</h1>
+    </LogOut>
+    <LogOutFailed>
+        <h1 style="color:red;">
+            Log Out Failed
+        </h1>
+    </LogOutFailed>
+    <LogOutSucceeded>
+        <h1>
+            Log Out Succeeded
+        </h1>
+    </LogOutSucceeded>
+    <Registering>
+        <LoadingComponent IsLoading="true"></LoadingComponent>
+        <h1>Registering</h1>
+    </Registering>
+    <UserProfile>
+        <h1>
+            User Profile
+        </h1>
+    </UserProfile>
 </RemoteAuthenticatorView>
 
 

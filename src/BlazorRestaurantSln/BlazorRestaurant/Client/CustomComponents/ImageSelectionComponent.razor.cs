@@ -20,10 +20,12 @@ namespace BlazorRestaurant.Client.CustomComponents
         private ImageModel[] AllImages { get; set; }
         [Parameter]
         public Action<string> OnImageSelected { get; set; }
+        private bool IsLoading { get; set; }
         protected async override Task OnInitializedAsync()
         {
             try
             {
+                this.IsLoading = true;
                 this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
                 this.AllImages = await this.AuthorizedHttpClient.GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             }
@@ -33,7 +35,7 @@ namespace BlazorRestaurant.Client.CustomComponents
             }
             finally
             {
-
+                this.IsLoading = false;
             }
         }
 
