@@ -18,7 +18,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
     public partial class Manage
     {
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private HttpClientService HttpClientService { get; set; }
         [Inject]
         private ToastifyService ToastifyService { get; set; }
         [Inject]
@@ -33,6 +33,12 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
         private string ErrorMessage { get; set; }
 
         private bool ShowSelectImageComponent { get; set; } = false;
+        private HttpClient AuthorizedHttpClient { get; set; }
+
+        protected override void OnInitialized()
+        {
+            this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+        }
 
         private void OpenSelectImage()
         {
@@ -50,7 +56,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
         {
             try
             {
-                var response = await HttpClient.PostAsJsonAsync("api/Promotion/AddPromotion", this.PromotionModel);
+                var response = await AuthorizedHttpClient.PostAsJsonAsync("api/Promotion/AddPromotion", this.PromotionModel);
                 if (!response.IsSuccessStatusCode)
                 {
                     var problemHttpResponse = await response.Content.ReadFromJsonAsync<ProblemHttpResponse>();

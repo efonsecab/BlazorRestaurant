@@ -73,6 +73,12 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.PromotionController.ListPromotions">
+            <summary>
+            Lists all Promotions
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.UserController">
             <summary>
             In charge of users management

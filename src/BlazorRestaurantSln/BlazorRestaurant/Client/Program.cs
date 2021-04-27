@@ -25,8 +25,14 @@ namespace BlazorRestaurant.Client
                 client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
+            builder.Services.AddHttpClient($"{assemblyName}.ServerAPI.Anonymous", client =>
+                client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
                 .CreateClient($"{assemblyName}.ServerAPI"));
+
+            builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>()
+                .CreateClient($"{assemblyName}.ServerAPI.Anonymous"));
 
             builder.Services.AddMsalAuthentication<RemoteAuthenticationState, CustomRemoteUserAccount>(options =>
             {
@@ -44,6 +50,7 @@ namespace BlazorRestaurant.Client
             siteConfiguration ??= new SiteConfiguration();
             builder.Services.AddSingleton(siteConfiguration);
             builder.Services.AddScoped<ToastifyService>();
+            builder.Services.AddScoped<HttpClientService>();
 
             await builder.Build().RunAsync();
         }

@@ -15,9 +15,10 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
     public  partial class List
     {
         [Inject]
-        private HttpClient HttpClient { get; set; }
+        private HttpClientService HttpClientService { get; set; }
         [Inject]
         private ToastifyService ToastifyService { get; set; }
+        private HttpClient AuthorizedHttpClient { get; set; }
         private ImageModel[] AllImages { get; set; }
 
 
@@ -25,7 +26,8 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         {
             try
             {
-                this.AllImages = await this.HttpClient.GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
+                this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+                this.AllImages = await this.AuthorizedHttpClient.GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             }
             catch (Exception ex)
             {
