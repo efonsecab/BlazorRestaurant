@@ -54,6 +54,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">
+            <summary>
+            In charge of promotions management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.PromotionController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.PromotionController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.PromotionController.AddPromotion(BlazorRestaurant.Shared.Promos.PromotionModel)">
+            <summary>
+            Adds a new promotion to the system
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.UserController">
             <summary>
             In charge of users management
