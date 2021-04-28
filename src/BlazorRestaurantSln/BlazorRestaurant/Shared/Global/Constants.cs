@@ -13,5 +13,15 @@ namespace BlazorRestaurant.Shared.Global
             public const string Admin = "Admin";
             public const string User = "User";
         }
+
+        public class AdminPagesRoutes
+        {
+            public const string AdminIndex = "/Admin/Index";
+            public const string ListImages = "/Admin/Images/List";
+            public const string ManageImages = "/Admin/Images/Manage";
+            public const string ListPromos = "/Admin/Promos/List";
+            public const string AddPromo = "/Admin/Promos/Manage";
+            public const string EditPromo = "/Admin/Promos/Manage/{PromoId:guid}";
+        }
     }
 }

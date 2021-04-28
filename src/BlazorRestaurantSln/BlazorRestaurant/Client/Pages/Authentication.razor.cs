@@ -49,8 +49,11 @@ namespace BlazorRestaurant.Client.Pages
             {
                 NavigationManager.NavigateTo("/Admin/Index");
             }
+        }
 
-
+        private void OnLogOutSucceeded()
+        {
+            NavigationManager.NavigateTo("/");
         }
     }
 }

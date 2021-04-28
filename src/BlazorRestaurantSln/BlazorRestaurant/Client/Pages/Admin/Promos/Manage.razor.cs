@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 namespace BlazorRestaurant.Client.Pages.Admin.Promos
 {
     [Authorize(Roles = Constants.Roles.Admin)]
+    [Route(Constants.AdminPagesRoutes.AddPromo)]
+    [Route(Constants.AdminPagesRoutes.EditPromo)]
     public partial class Manage
     {
         [Inject]

@@ -1,7 +1,7 @@
-﻿@page "/Admin/Images/List"
-@layout AdminLayout
+﻿@layout AdminLayout
 
 <h3>List Images</h3>
+<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
 @if (AllImages != null)
 {
     <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -12,7 +12,12 @@
                     <img src="@singleImage.ImageUrl" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">@singleImage.ImageName</h5>
-                        @*<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>*@
+                    </div>
+                    <div class="card-footer">
+                        <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                                @onclick="@( ()=> ShowConfirmDeleteDialog(singleImage))">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -20,4 +25,12 @@
     </div>
 }
 
-<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
+@if (this.ShouldShowConfirmDeleteModal)
+{
+    <ConfirmComponent CloseAction="HideConfirmDeleteDialog" OkText="Delete" Title="Delete Image" 
+                      OkAction="@(async () => await DeleteSelectedImage())" CloseText="Cancel">
+        <BodyContent>
+            <p>Are you sure you want to delete the selected Image?</p>
+        </BodyContent>
+    </ConfirmComponent>
+}
