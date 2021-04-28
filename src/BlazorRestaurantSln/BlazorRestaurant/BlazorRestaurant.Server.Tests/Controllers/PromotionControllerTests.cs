@@ -59,5 +59,22 @@ namespace BlazorRestaurant.Server.Controllers.Tests
             var response = await authorizedHttpClient.GetFromJsonAsync<PromotionModel[]>("api/Promotion/ListPromotions");
             Assert.IsTrue(response.Length > 0);
         }
+
+        [TestMethod()]
+        public async Task DeletePromotionTest()
+        {
+            using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
+            var testPromotionEntity = await blazorRestaurantDbContext.Promotion
+                .Where(p => p.Name == TestPromotionModel.Name).FirstOrDefaultAsync();
+            Assert.IsNotNull(testPromotionEntity);
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var response = await authorizedHttpClient.DeleteAsync($"api/Promotion/" +
+                $"DeletePromotion?promotionId={testPromotionEntity.PromotionId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Assert.Fail(content);
+            }
+        }
     }
 }

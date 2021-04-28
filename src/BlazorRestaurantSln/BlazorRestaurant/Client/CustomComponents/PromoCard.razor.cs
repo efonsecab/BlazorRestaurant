@@ -14,5 +14,9 @@ namespace BlazorRestaurant.Client.CustomComponents
         public string CardTitle { get; set; }
         [Parameter]
         public string CardBodyText { get; set; }
+        [Parameter]
+        public bool EnableDelete { get; set; }
+        [Parameter]
+        public Action DeleteAction { get; set; }
     }
 }

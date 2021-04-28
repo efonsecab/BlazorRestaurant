@@ -60,5 +60,25 @@ namespace BlazorRestaurant.Server.Controllers
             this.Mapper.Map<Promotion, PromotionModel>(p)).ToArrayAsync();
             return result;
         }
+
+        /// <summary>
+        /// Delete the promotion with the specified id
+        /// </summary>
+        /// <param name="promotionId"></param>
+        /// <returns></returns>
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeletePromotion(long promotionId)
+        {
+            var promotionEntity = 
+                await this.BlazorRestaurantDbContext.Promotion.Where(p => p.PromotionId == promotionId).SingleOrDefaultAsync();
+            if (promotionEntity == null)
+                throw new Exception($"Promotion with id: {promotionId} does not exist");
+            else
+            {
+                this.BlazorRestaurantDbContext.Promotion.Remove(promotionEntity);
+                await this.BlazorRestaurantDbContext.SaveChangesAsync();
+                return Ok();
+            }
+        }
     }
 }

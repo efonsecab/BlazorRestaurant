@@ -31,7 +31,7 @@ namespace BlazorRestaurant.Client.CustomClaims
             {
                 ClaimsIdentity claimsIdentity = userClaimsPrincipal.Identity as ClaimsIdentity;
                 var userObjectId = claimsIdentity.Claims.GetAzureAdB2CUserObjectId();
-                var httpClient = this.HttpClientService.CreatedAuthorizedClient();
+                var httpClient = this.HttpClientService.CreateAuthorizedClient();
                 var userRole = await httpClient.GetStringAsync($"api/User/GetUserRole?userAdB2CObjectId={userObjectId}");
                 claimsIdentity.AddClaim(new Claim("Role", userRole));
             }

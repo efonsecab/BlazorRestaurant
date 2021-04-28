@@ -36,7 +36,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
 
         protected override void OnInitialized()
         {
-            this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+            this.AuthorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
         }
 
         private async Task OnFileSelectionChangeAsync(InputFileChangeEventArgs e)

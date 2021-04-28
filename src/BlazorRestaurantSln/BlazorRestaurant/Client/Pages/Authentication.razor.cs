@@ -38,7 +38,7 @@ namespace BlazorRestaurant.Client.Pages
                 FullName = authState.User.Claims.GetDisplayName(),
                 AzureAdB2cobjectId = Guid.Parse(authState.User.Claims.GetAzureAdB2CUserObjectId())
             };
-            var authorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+            var authorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
             var response = await authorizedHttpClient.PostAsJsonAsync<UserModel>("api/User/UserLoggedIn", userModel);
             if (!response.IsSuccessStatusCode)
             {

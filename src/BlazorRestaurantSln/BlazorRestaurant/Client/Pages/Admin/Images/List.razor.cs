@@ -37,7 +37,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
             try
             {
                 this.IsLoading = true;
-                this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+                this.AuthorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
                 this.AllImages = await this.AuthorizedHttpClient.GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             }
             catch (Exception ex)

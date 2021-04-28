@@ -25,7 +25,7 @@ namespace BlazorRestaurant.Client.Pages
             try
             {
                 this.IsLoading = true;
-                this.AnonymousHttpClient = this.HttpClientService.CreatedAnonymousClient();
+                this.AnonymousHttpClient = this.HttpClientService.CreateAnonymousClient();
                 this.AllPromotions = await AnonymousHttpClient.GetFromJsonAsync<PromotionModel[]>("api/Promotion/ListPromotions");
             }
             catch (Exception ex)
