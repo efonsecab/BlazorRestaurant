@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.Identity.Web" Version="1.9.1" />
     <PackageReference Include="PTI.Microservices.Library" Version="1.0.3.7-preview" />
     <PackageReference Include="PTI.Microservices.Library.Models" Version="1.0.3.7-preview" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.3" />
   </ItemGroup>
 
   <ItemGroup>

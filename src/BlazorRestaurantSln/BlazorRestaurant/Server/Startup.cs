@@ -17,6 +17,7 @@ using PTI.Microservices.Library.Configuration;
 using PTI.Microservices.Library.Interceptors;
 using PTI.Microservices.Library.Services;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace BlazorRestaurant.Server
@@ -72,6 +73,14 @@ namespace BlazorRestaurant.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.UseInlineDefinitionsForEnums();
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "BlazorRestaurant.Server.xml");
+                if (System.IO.File.Exists(filePath))
+                    c.IncludeXmlComments(filePath);
+            });
         }
 
         private void ConfigureDataStorage(IServiceCollection services)
@@ -104,6 +113,11 @@ namespace BlazorRestaurant.Server
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor Restaurant API");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
