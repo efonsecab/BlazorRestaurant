@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 <h2>Promos</h2>
-
+<LoadingComponent IsLoading="@IsLoading"></LoadingComponent>
 @if (this.AllPromotions != null)
 {
     for (int iPage = 0; iPage < this.TotalPages; iPage++)
@@ -20,4 +20,3 @@
         </div>
     }
 }
-<LoadingComponent  IsLoading="@IsLoading"></LoadingComponent>

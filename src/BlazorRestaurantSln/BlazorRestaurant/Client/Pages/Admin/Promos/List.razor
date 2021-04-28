@@ -1,5 +1,37 @@
 ﻿@layout AdminLayout
 
-<h3>Promos</h3>
+<h2>Promos</h2>
+<LoadingComponent IsLoading="@IsLoading"></LoadingComponent>
+@if (this.AllPromotions != null)
+{
+    for (int iPage = 0; iPage < this.TotalPages; iPage++)
+    {
+        var pageItems = this.AllPromotions.Skip(iPage * 2).Take(2);
+        <div class="card-group">
+            @foreach (var singlePageItem in pageItems)
+            {
+                <PromoCard CardTitle="@singlePageItem.Name"
+                           CardBodyText="@singlePageItem.Description"
+                           EnableDelete="true"
+                           DeleteAction="@( () => ShowConfirmDeleteModal(singlePageItem))">
+                    <Image>
+                        <img src="@singlePageItem.ImageUrl" class="card-img-top" alt="..." style="height:300px;">
+                    </Image>
+                </PromoCard>
+            }
+        </div>
+    }
+}
 
 
+@if (this.ShouldShowConfirmDeleteModal)
+{
+    <ConfirmComponent CloseAction="HideConfirmDeleteDialog" CloseText="Cancel"
+                      OkAction="@(async () => await DeleteSelectedPromotion())"
+                      OkText="Delete"
+                      Title="Delete Promotion">
+        <BodyContent>
+            <p>Are you sure you want to deleted the selected promotion?</p>
+        </BodyContent>
+    </ConfirmComponent>
+}

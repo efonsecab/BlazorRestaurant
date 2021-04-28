@@ -87,6 +87,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.PromotionController.DeletePromotion(System.Int64)">
+            <summary>
+            Delete the promotion with the specified id
+            </summary>
+            <param name="promotionId"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.UserController">
             <summary>
             In charge of users management

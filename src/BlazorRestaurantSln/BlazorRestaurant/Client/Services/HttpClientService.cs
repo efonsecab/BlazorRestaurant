@@ -14,13 +14,13 @@ namespace BlazorRestaurant.Client.Services
             this.HttpClientFactory = httpClientFactory;
         }
 
-        public HttpClient CreatedAnonymousClient()
+        public HttpClient CreateAnonymousClient()
         {
             string assemblyName = "BlazorRestaurant";
             return this.HttpClientFactory.CreateClient($"{assemblyName}.ServerAPI.Anonymous");
         }
 
-        public HttpClient CreatedAuthorizedClient()
+        public HttpClient CreateAuthorizedClient()
         {
             string assemblyName = "BlazorRestaurant";
             return this.HttpClientFactory.CreateClient($"{assemblyName}.ServerAPI");

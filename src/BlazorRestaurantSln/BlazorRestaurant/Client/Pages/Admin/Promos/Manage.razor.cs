@@ -40,7 +40,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
 
         protected override void OnInitialized()
         {
-            this.AuthorizedHttpClient = this.HttpClientService.CreatedAuthorizedClient();
+            this.AuthorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
         }
 
         private void OpenSelectImage()

@@ -4,4 +4,13 @@
         <h5 class="card-title">@CardTitle</h5>
         <p class="card-text">@CardBodyText</p>
     </div>
+    @if (this.EnableDelete)
+    {
+        <div class="card-footer">
+            <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"
+                    @onclick="@DeleteAction">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        </div>
+    }
 </div>
