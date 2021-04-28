@@ -1,7 +1,8 @@
-﻿@page "/Admin/Images/Manage"
-@layout AdminLayout
+﻿@layout AdminLayout
 
 <h3>Manage Image</h3>
+
+<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
 
 <EditForm Model="@ImageUploadModel" OnValidSubmit="OnValidSubmit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
@@ -21,4 +22,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </EditForm>
-<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
+
+@if (!String.IsNullOrWhiteSpace(ImageBase64Url))
+{
+    <img src="@ImageBase64Url" class="img-thumbnail" />
+}

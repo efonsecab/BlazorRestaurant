@@ -34,12 +34,13 @@
             In charge of Images management
             </summary>
         </member>
-        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.#ctor(PTI.Microservices.Library.Services.AzureBlobStorageService,BlazorRestaurant.Server.Configuration.DataStorageConfiguration)">
+        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.#ctor(PTI.Microservices.Library.Services.AzureBlobStorageService,BlazorRestaurant.Server.Configuration.DataStorageConfiguration,BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext)">
             <summary>
             Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ImageController"/>
             </summary>
             <param name="azureBlobStorageService"></param>
             <param name="dataStorageConfiguration"></param>
+            <param name="blazorRestaurantDbContext"></param>
         </member>
         <member name="M:BlazorRestaurant.Server.Controllers.ImageController.UploadImage(BlazorRestaurant.Shared.Images.ImageUploadModel)">
             <summary>
@@ -52,6 +53,13 @@
             <summary>
             Lists all Images in the system
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ImageController.DeleteImage(System.String)">
+            <summary>
+            Deletes the given image
+            </summary>
+            <param name="imageName"></param>
             <returns></returns>
         </member>
         <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">

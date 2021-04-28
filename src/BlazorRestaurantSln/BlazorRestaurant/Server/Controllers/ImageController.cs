@@ -1,8 +1,10 @@
-﻿using BlazorRestaurant.Server.Configuration;
+﻿using BlazorRestaurant.DataAccess.Data;
+using BlazorRestaurant.Server.Configuration;
 using BlazorRestaurant.Shared.Images;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PTI.Microservices.Library.Services;
 using System;
 using System.Collections.Generic;
@@ -22,17 +24,20 @@ namespace BlazorRestaurant.Server.Controllers
     {
         private AzureBlobStorageService AzureBlobStorageService { get; }
         private DataStorageConfiguration DataStorageConfiguration { get; }
+        private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
 
         /// <summary>
         /// Creates a new instance of <see cref="ImageController"/>
         /// </summary>
         /// <param name="azureBlobStorageService"></param>
         /// <param name="dataStorageConfiguration"></param>
+        /// <param name="blazorRestaurantDbContext"></param>
         public ImageController(AzureBlobStorageService azureBlobStorageService,
-            DataStorageConfiguration dataStorageConfiguration)
+            DataStorageConfiguration dataStorageConfiguration, BlazorRestaurantDbContext blazorRestaurantDbContext)
         {
             this.AzureBlobStorageService = azureBlobStorageService;
             this.DataStorageConfiguration = dataStorageConfiguration;
+            this.BlazorRestaurantDbContext = blazorRestaurantDbContext;
         }
 
 
@@ -81,6 +86,28 @@ namespace BlazorRestaurant.Server.Controllers
                     imageModels.AddRange(blobs);
             }
             return imageModels.ToArray();
+        }
+
+        /// <summary>
+        /// Deletes the given image
+        /// </summary>
+        /// <param name="imageName"></param>
+        /// <returns></returns>
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteImage(string imageName)
+        {
+            var promotionsUsingImage = await this.BlazorRestaurantDbContext.Promotion.Where(p => p.ImageUrl.EndsWith(imageName))
+                .ToListAsync();
+            if (promotionsUsingImage.Count > 0)
+            {
+                throw new Exception($"Image will not be deleted. It is being used by promotions");
+            }
+            var result = await this.AzureBlobStorageService.DeleteFileAsync(this.DataStorageConfiguration.ImagesContainerName,
+                imageName);
+            if (result.Status == (int)System.Net.HttpStatusCode.Accepted)
+                return Ok();
+            else
+                throw new Exception(result.ReasonPhrase);
         }
     }
 }
