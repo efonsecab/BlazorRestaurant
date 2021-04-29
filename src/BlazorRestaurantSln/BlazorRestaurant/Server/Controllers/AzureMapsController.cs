@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.Shared.AzureMaps;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PTI.Microservices.Library.Models.AzureMapsService.GetSearchPOI;
@@ -16,6 +17,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AzureMapsController : ControllerBase
     {
         private AzureMapsService AzureMapsService { get; }

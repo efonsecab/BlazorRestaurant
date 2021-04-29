@@ -4,5 +4,9 @@
     [Message] NVARCHAR(MAX) NOT NULL, 
     [StackTrace] NVARCHAR(MAX) NOT NULL, 
     [FullException] NVARCHAR(MAX) NOT NULL, 
-    [CreatedAt] DATETIMEOFFSET NOT NULL
+    [CreatedAt] DATETIMEOFFSET NOT NULL,
+    [RowCreationDateTime] DATETIMEOFFSET NOT NULL, 
+    [RowCreationUser] NVARCHAR(256) NOT NULL,
+    [SourceApplication] NVARCHAR(250) NOT NULL, 
+    [OriginatorIPAddress] NVARCHAR(100) NOT NULL
 )
