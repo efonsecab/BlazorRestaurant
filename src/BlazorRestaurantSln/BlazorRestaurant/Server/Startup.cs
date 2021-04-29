@@ -19,6 +19,8 @@ using PTI.Microservices.Library.Services;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace BlazorRestaurant.Server
 {
@@ -51,17 +53,26 @@ namespace BlazorRestaurant.Server
         public void ConfigureServices(IServiceCollection services)
         {
             GlobalPackageConfiguration.RapidApiKey = Configuration["PTIMicroservicesLibraryConfiguration:RapidApiKey"];
-            services.AddDbContext<BlazorRestaurantDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
-            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
             services.Configure<JwtBearerOptions>(
                 JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.TokenValidationParameters.NameClaimType = "name";
+                    options.Events.OnTokenValidated = (context) => 
+                    {
+                        System.Threading.Thread.CurrentPrincipal = context.Principal;
+                        return Task.CompletedTask;
+                    };
+                    options.SaveToken = true;
                 });
+
+            services.AddDbContext<BlazorRestaurantDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+            });
+
             services.AddAutoMapper(configAction =>
             {
                 configAction.AddMaps(new[] { typeof(Startup).Assembly });

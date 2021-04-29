@@ -1,4 +1,5 @@
 ﻿using BlazorRestaurant.Server.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ConfigurationController : ControllerBase
     {
         private AzureConfiguration AzureConfiguration { get; }
