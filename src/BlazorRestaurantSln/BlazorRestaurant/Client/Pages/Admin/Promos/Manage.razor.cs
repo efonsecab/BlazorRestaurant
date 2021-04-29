@@ -26,7 +26,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         [Parameter]
-        public Guid? PromoId { get; set; }
+        public long? PromoId { get; set; }
 
         private bool IsEdit => PromoId.HasValue;
         private string Title => IsEdit ? "Add Promo" : "Edit Promo";

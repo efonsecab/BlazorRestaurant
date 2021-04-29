@@ -1,0 +1,15 @@
+﻿@layout AdminLayout
+
+<h3>Manage Order</h3>
+
+<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
+
+@if (this.CanRenderMap)
+{
+    <AzureMapsComponent MapsControlId="divMap"
+                        SubscriptionKey="@AzureMapsKey"
+                        SearchPOIAction="SearchPOI"
+                        SelectedPOIAction="OnPOISelected">
+
+    </AzureMapsComponent>
+}

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.AzureMaps;
 using BlazorRestaurant.Shared.Promos;
 using BlazorRestaurant.Shared.User;
+using PTI.Microservices.Library.Models.AzureMapsService.GetSearchPOI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,16 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
             this.CreateMap<UserModel, ApplicationUser>().ReverseMap();
 
             this.CreateMap<PromotionModel, Promotion>().ReverseMap();
+
+            this.CreateMap<GetSearchPOIResponse, PointOfInterestModel[]>().ConstructUsing(source =>
+            source.results.Select(p => new PointOfInterestModel()
+            {
+                Name = p.poi.name,
+                Latitude = p.position.lat,
+                Longitude = p.position.lon,
+                Country = p.address.country,
+                FreeFormAddress = p.address.freeformAddress
+            }).ToArray()); ;
         }
     }
 }
