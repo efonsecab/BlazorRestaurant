@@ -14,6 +14,16 @@
             Sets how types are going to be mapped by AutoMapper
             </summary>
         </member>
+        <member name="T:BlazorRestaurant.Server.Configuration.AzureConfiguration">
+            <summary>
+            Holds the configuration for Azure Resources
+            </summary>
+        </member>
+        <member name="P:BlazorRestaurant.Server.Configuration.AzureConfiguration.AzureMapsConfiguration">
+            <summary>
+            Holds the Azure Maps Configuration
+            </summary>
+        </member>
         <member name="T:BlazorRestaurant.Server.Configuration.DataStorageConfiguration">
             <summary>
             Holds the the Data Storage configuration
@@ -28,6 +38,43 @@
             <summary>
             Url for the Images Blob Container
             </summary>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.AzureMapsController">
+            <summary>
+            In charge of exposing Azure Maps functionality
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.AzureMapsController.#ctor(PTI.Microservices.Library.Services.AzureMapsService,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.AzureMapsController"/>
+            </summary>
+            <param name="azureMapsService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.AzureMapsController.SearchPointsOfInterest(System.String,System.String)">
+            <summary>
+            Searches Points Of Interests in the specified country, using the specified search term
+            </summary>
+            <param name="searchTerm"></param>
+            <param name="countryCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.ConfigurationController">
+            <summary>
+            In charge of Configuration management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.#ctor(BlazorRestaurant.Server.Configuration.AzureConfiguration)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ConfigurationController"/>
+            <paramref name="azureConfiguration"/>>
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.GetAzureMapsKey">
+            <summary>
+            Gets the Azure Maps Key
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ImageController">
             <summary>

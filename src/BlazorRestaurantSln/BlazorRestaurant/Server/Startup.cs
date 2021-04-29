@@ -71,6 +71,11 @@ namespace BlazorRestaurant.Server
             ConfigurePTIMicroservicesLibraryDefaults(services);
             ConfigureAzureBlobStorage(services);
 
+            AzureConfiguration azureConfiguration = Configuration.GetSection("AzureConfiguration").Get<AzureConfiguration>();
+            services.AddSingleton(azureConfiguration);
+
+            ConfigureAzureMaps(services, azureConfiguration);
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -81,6 +86,12 @@ namespace BlazorRestaurant.Server
                 if (System.IO.File.Exists(filePath))
                     c.IncludeXmlComments(filePath);
             });
+        }
+
+        private static void ConfigureAzureMaps(IServiceCollection services, AzureConfiguration azureConfiguration)
+        {
+            services.AddSingleton(azureConfiguration.AzureMapsConfiguration);
+            services.AddTransient<AzureMapsService>();
         }
 
         private void ConfigureDataStorage(IServiceCollection services)

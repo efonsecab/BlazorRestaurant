@@ -1,0 +1,39 @@
+﻿<h3>Azure Maps Control</h3>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <div id="@MapsControlId" style="height:500px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <EditForm Model="SearchPOIModel" OnValidSubmit="@(async() => SearchPOI())">
+            <DataAnnotationsValidator></DataAnnotationsValidator>
+            <ValidationSummary></ValidationSummary>
+            <div class="mb-3">
+                <label class="form-label">Term</label>
+                <InputText class="form-control" @bind-Value="SearchPOIModel.SearchTerm"></InputText>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Country Code</label>
+                <InputText class="form-control" @bind-Value="SearchPOIModel.CountryCode"></InputText>
+                <button class="btn btn-secondary" type="submit">Search</button>
+                @if (this.PointsOfInterest != null)
+                {
+                    <ul class="list-group">
+                        @foreach (var singlePOI in this.PointsOfInterest)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center" style="cursor:pointer; color:blue; background-color:white;"
+                                @onclick="@( () => OnPOISelected(singlePOI))">
+                                @($"{singlePOI.Name} - ({singlePOI.Latitude},{singlePOI.Longitude}) - {singlePOI.FreeFormAddress} - {singlePOI.Country}")
+                                <span class="badge badge-primary badge-pill">></span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </EditForm>
+    </div>
+</div>

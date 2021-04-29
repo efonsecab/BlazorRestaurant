@@ -9,28 +9,33 @@
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/Admin/Index" Match="NavLinkMatch.All">
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.AdminIndex" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Admin Home
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/Admin/Promos/Manage">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Add Promo
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.AddPromo">
+                <span class="oi oi-plus" aria-hidden="true"></span> Add Promo
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/Admin/Promos/List">
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.ListPromos">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Promos
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/Admin/Images/Manage">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Add Images
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.ManageImages">
+                <span class="oi oi-plus" aria-hidden="true"></span> Add Images
             </NavLink>
         </li>
         <li class="nav-item px-3">
-            <NavLink class="nav-link" href="/Admin/Images/List">
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.ListImages">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> List Images
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="@Constants.AdminPagesRoutes.AddOrder">
+                <span class="oi oi-plus" aria-hidden="true"></span> Add Order
             </NavLink>
         </li>
     </ul>

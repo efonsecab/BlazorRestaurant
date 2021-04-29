@@ -1,6 +1,7 @@
 using BlazorRestaurant.Client.Configuration;
 using BlazorRestaurant.Client.CustomClaims;
 using BlazorRestaurant.Client.Services;
+using BlazorRestaurant.Components.Azure.AzureMaps;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -51,6 +52,8 @@ namespace BlazorRestaurant.Client
             builder.Services.AddSingleton(siteConfiguration);
             builder.Services.AddScoped<ToastifyService>();
             builder.Services.AddScoped<HttpClientService>();
+
+            builder.Services.AddScoped<AzureMapsControlModule>();
 
             await builder.Build().RunAsync();
         }

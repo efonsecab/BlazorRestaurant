@@ -21,7 +21,9 @@ namespace BlazorRestaurant.Shared.Global
             public const string ManageImages = "/Admin/Images/Manage";
             public const string ListPromos = "/Admin/Promos/List";
             public const string AddPromo = "/Admin/Promos/Manage";
-            public const string EditPromo = "/Admin/Promos/Manage/{PromoId:guid}";
+            public const string EditPromo = "/Admin/Promos/Manage/{PromoId:long}";
+            public const string AddOrder = "/Admin/Orders/Manage";
+            public const string EditOrder = "/Admin/Orders/Manage/{OrderId:long}";
         }
     }
 }
