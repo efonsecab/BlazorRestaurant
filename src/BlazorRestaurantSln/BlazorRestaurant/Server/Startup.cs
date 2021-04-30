@@ -114,7 +114,8 @@ namespace BlazorRestaurant.Server
             DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
                             new();
             BlazorRestaurantDbContext blazorRestaurantDbContext =
-            new(dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default")).Options,
+            new(dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"),
+            sqlServerOptionsAction: (serverOptions) => serverOptions.EnableRetryOnFailure(3)).Options,
             serviceProvider.GetService<ICurrentUserProvider>());
             return blazorRestaurantDbContext;
         }
@@ -183,7 +184,7 @@ namespace BlazorRestaurant.Server
                     {
                         try
                         {
-                            BlazorRestaurantDbContext blazorRestaurantDbContext = 
+                            BlazorRestaurantDbContext blazorRestaurantDbContext =
                             this.CreateBlazorRestaurantDbContext(context.RequestServices);
                             await blazorRestaurantDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
                             {

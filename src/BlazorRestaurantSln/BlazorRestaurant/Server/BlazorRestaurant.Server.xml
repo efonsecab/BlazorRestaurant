@@ -83,6 +83,21 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.ErrorController">
+            <summary>
+            In charge of errorrs management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ErrorController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ErrorController"/>
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ErrorController.ListErrors">
+            <summary>
+            Lists all of the errors in the system
+            </summary>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ImageController">
             <summary>
             In charge of Images management
