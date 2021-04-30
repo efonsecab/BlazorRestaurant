@@ -12,6 +12,8 @@ namespace BlazorRestaurant.Server.CustomProviders
     /// </summary>
     public class CurrentUserProvider : ICurrentUserProvider
     {
+        private const string USER_UNKNOWN = "Unknown";
+
         private IHttpContextAccessor HttpContextAccessor { get; }
         /// <summary>
         /// Creates a new instance of <see cref="CurrentUserProvider"/>
@@ -28,8 +30,15 @@ namespace BlazorRestaurant.Server.CustomProviders
         /// <returns></returns>
         public string GetUsername()
         {
-            var user = this.HttpContextAccessor.HttpContext.User;
-            return user?.Identity.Name ?? "Unknown";
+            if (this.HttpContextAccessor.HttpContext == null)
+            {
+                return USER_UNKNOWN;
+            }
+            else
+            {
+                var user = this.HttpContextAccessor.HttpContext.User;
+                return user?.Identity.Name ?? USER_UNKNOWN;
+            }
         }
     }
 }
