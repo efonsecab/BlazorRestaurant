@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Server.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Components", "BlazorRestaurant.Components\BlazorRestaurant.Components.csproj", "{302A1E2A-CD5F-49C2-8E2D-52C10AEFFDE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.Common", "BlazorRestaurant.Common\BlazorRestaurant.Common.csproj", "{D11CF676-9A14-42C4-8C74-18F1B1E07470}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Common", "BlazorRestaurant.Common\BlazorRestaurant.Common.csproj", "{D11CF676-9A14-42C4-8C74-18F1B1E07470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

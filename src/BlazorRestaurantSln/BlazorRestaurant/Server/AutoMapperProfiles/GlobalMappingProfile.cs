@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.AzureMaps;
+using BlazorRestaurant.Shared.Errors;
 using BlazorRestaurant.Shared.Promos;
 using BlazorRestaurant.Shared.User;
 using PTI.Microservices.Library.Models.AzureMapsService.GetSearchPOI;
@@ -50,6 +51,8 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
                 ResponseReasonPhrase=p.ResponseReasonPhrase,
                 ResponseStatusCode = (int)p.ResponseStatusCode
             });
+
+            this.CreateMap<ErrorLog, ErrorLogModel>().ReverseMap();
         }
     }
 }

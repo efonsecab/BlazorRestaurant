@@ -1,0 +1,27 @@
+﻿<h3>Errors</h3>
+
+<LoadingComponent IsLoading="IsLoading"></LoadingComponent>
+
+@if (this.AllErrors != null)
+{
+    foreach (var singleError in this.AllErrors)
+    {
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">
+                    <div class="row">
+                        <div class="col-4">
+                            <strong>Id: </strong> @singleError.ErrorLogId
+                        </div>
+                        <div class="col-4">
+                            <strong>Created On: </strong> @singleError.RowCreationDateTime
+                        </div>
+                        <div class="col-4">
+                            <strong>Message: </strong> @singleError.Message
+                        </div>
+                    </div>
+                </p>
+            </div>
+        </div>
+    }
+}
