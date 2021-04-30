@@ -1,0 +1,10 @@
+﻿<h3>ErrorsPowerBI</h3>
+
+@if (!String.IsNullOrWhiteSpace(this.ReportUrl))
+{
+    <iframe width="1024" height="1060"
+            src="@ReportUrl"
+            frameborder="0"
+            allowFullScreen="true">
+    </iframe>
+}

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static PTI.Microservices.Library.Interceptors.CustomHttpClientHandler;
 
 namespace BlazorRestaurant.Server.AutoMapperProfiles
 {
@@ -33,7 +34,22 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
                 Longitude = p.position.lon,
                 Country = p.address.country,
                 FreeFormAddress = p.address.freeformAddress
-            }).ToArray()); ;
+            }).ToArray());
+
+
+            this.CreateMap<CustomHttpClientHandlerRequestResponseModel, 
+                ExternalRequestTracking>().ConstructUsing(p => new ExternalRequestTracking() 
+            {
+                RequestContentHeaders = p.RequestContentHeaders,
+                RequestContentString=p.RequestContentString,
+                RequestHeaders=p.RequestHeaders,
+                RequestMethod=p.RequestMethod.Method,
+                RequestUrl=p.RequestUrl.ToString(),
+                ResponseContentHeaders=p.ResponseContentHeaders,
+                ResponseContentString=p.ResponseContentString,
+                ResponseReasonPhrase=p.ResponseReasonPhrase,
+                ResponseStatusCode = (int)p.ResponseStatusCode
+            });
         }
     }
 }

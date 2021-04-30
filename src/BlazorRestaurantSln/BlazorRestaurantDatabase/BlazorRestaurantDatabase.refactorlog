@@ -35,4 +35,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PromotionId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="1c779611-c8f4-468d-bb3c-b852def63541" ChangeDateTime="04/29/2021 19:13:37">
+    <Property Name="ElementName" Value="[dbo].[RequestTracking].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RequestTracking]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RequestTrackingId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ce470a3b-dd96-44c9-95cc-4e426640f4cd" ChangeDateTime="04/29/2021 19:46:50">
+    <Property Name="ElementName" Value="[dbo].[RequestTracking].[RequestTrackingId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RequestTracking]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ExternalRequestTrackingId" />
+  </Operation>
 </Operations>

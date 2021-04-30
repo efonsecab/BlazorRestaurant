@@ -64,15 +64,22 @@
             In charge of Configuration management
             </summary>
         </member>
-        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.#ctor(BlazorRestaurant.Server.Configuration.AzureConfiguration)">
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.#ctor(BlazorRestaurant.Server.Configuration.AzureConfiguration,BlazorRestaurant.Shared.Configuration.SystemConfiguration)">
             <summary>
             Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ConfigurationController"/>
-            <paramref name="azureConfiguration"/>>
+            <paramref name="azureConfiguration"/>
+            <paramref name="systemConfiguration"/>
             </summary>
         </member>
         <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.GetAzureMapsKey">
             <summary>
             Gets the Azure Maps Key
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.GetErrorLogPowerBIUrl">
+            <summary>
+            Retrieves the Url for the Power BI Error Log Report
             </summary>
             <returns></returns>
         </member>
@@ -182,6 +189,59 @@
         <member name="M:BlazorRestaurant.Server.Controllers.WeatherForecastController.Get">
             <summary>
             Executes the Get Request
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger">
+            <summary>
+            Custom logger for <see cref="T:PTI.Microservices.Library.Interceptors.CustomHttpClientHandler"/>
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger.#ctor(Microsoft.Extensions.DependencyInjection.IServiceScopeFactory,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger"/>
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger.BeginScope``1(``0)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="state"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <summary>
+            
+            </summary>
+            <param name="logLevel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <summary>
+            
+            </summary>
+            <typeparam name="TState"></typeparam>
+            <param name="logLevel"></param>
+            <param name="eventId"></param>
+            <param name="state"></param>
+            <param name="exception"></param>
+            <param name="formatter"></param>
+        </member>
+        <member name="T:BlazorRestaurant.Server.CustomProviders.CurrentUserProvider">
+            <summary>
+            Holds the logic to retrieve the current user's information
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomProviders.CurrentUserProvider.#ctor(Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.CustomProviders.CurrentUserProvider"/>
+            </summary>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.CustomProviders.CurrentUserProvider.GetUsername">
+            <summary>
+            Retrieves the user's username
             </summary>
             <returns></returns>
         </member>

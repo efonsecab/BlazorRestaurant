@@ -1,5 +1,9 @@
+using BlazorRestaurant.Common.Interfaces;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.Server.Configuration;
+using BlazorRestaurant.Server.CustomLoggers;
+using BlazorRestaurant.Server.CustomProviders;
+using BlazorRestaurant.Shared.Configuration;
 using BlazorRestaurant.Shared.CustomHttpResponses;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
 using PTI.Microservices.Library.Configuration;
 using PTI.Microservices.Library.Interceptors;
@@ -60,7 +65,7 @@ namespace BlazorRestaurant.Server
                 JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.TokenValidationParameters.NameClaimType = "name";
-                    options.Events.OnTokenValidated = (context) => 
+                    options.Events.OnTokenValidated = (context) =>
                     {
                         System.Threading.Thread.CurrentPrincipal = context.Principal;
                         return Task.CompletedTask;
@@ -68,16 +73,21 @@ namespace BlazorRestaurant.Server
                     options.SaveToken = true;
                 });
 
-            services.AddDbContext<BlazorRestaurantDbContext>(options =>
+            services.AddTransient<ILogger<CustomHttpClientHandler>, CustomHttpClientHandlerLogger>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ICurrentUserProvider, CurrentUserProvider>();
+            services.AddScoped(serviceProvide =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("Default"));
+                BlazorRestaurantDbContext blazorRestaurantDbContext = CreateBlazorRestaurantDbContext(serviceProvide);
+                return blazorRestaurantDbContext;
             });
-
             services.AddAutoMapper(configAction =>
             {
                 configAction.AddMaps(new[] { typeof(Startup).Assembly });
             });
 
+            SystemConfiguration systemConfiguration = Configuration.GetSection("SystemConfiguration").Get<SystemConfiguration>();
+            services.AddSingleton(systemConfiguration);
             ConfigureDataStorage(services);
             ConfigurePTIMicroservicesLibraryDefaults(services);
             ConfigureAzureBlobStorage(services);
@@ -97,6 +107,16 @@ namespace BlazorRestaurant.Server
                 if (System.IO.File.Exists(filePath))
                     c.IncludeXmlComments(filePath);
             });
+        }
+
+        private BlazorRestaurantDbContext CreateBlazorRestaurantDbContext(IServiceProvider serviceProvider)
+        {
+            DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
+                            new();
+            BlazorRestaurantDbContext blazorRestaurantDbContext =
+            new(dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default")).Options,
+            serviceProvider.GetService<ICurrentUserProvider>());
+            return blazorRestaurantDbContext;
         }
 
         private static void ConfigureAzureMaps(IServiceCollection services, AzureConfiguration azureConfiguration)
@@ -163,11 +183,8 @@ namespace BlazorRestaurant.Server
                     {
                         try
                         {
-                            var connectionString = Configuration.GetConnectionString("Default");
-                            DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
-                            new();
-                            BlazorRestaurantDbContext blazorRestaurantDbContext =
-                            new(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
+                            BlazorRestaurantDbContext blazorRestaurantDbContext = 
+                            this.CreateBlazorRestaurantDbContext(context.RequestServices);
                             await blazorRestaurantDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
                             {
                                 CreatedAt = DateTimeOffset.UtcNow,

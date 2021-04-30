@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BlazorRestaurant.DataAccess.Models
 {
-    public partial class ErrorLog: IOriginatorInfo
+    public partial class ExternalRequestTracking: IOriginatorInfo
     {
     }
 }

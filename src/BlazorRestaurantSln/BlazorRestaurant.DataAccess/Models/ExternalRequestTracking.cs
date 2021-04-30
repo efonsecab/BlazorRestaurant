@@ -9,17 +9,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorRestaurant.DataAccess.Models
 {
-    public partial class ErrorLog
+    public partial class ExternalRequestTracking
     {
         [Key]
-        public long ErrorLogId { get; set; }
+        public long ExternalRequestTrackingId { get; set; }
+        public string RequestContentHeaders { get; set; }
+        public string RequestContentString { get; set; }
         [Required]
-        public string Message { get; set; }
+        public string RequestHeaders { get; set; }
         [Required]
-        public string StackTrace { get; set; }
+        [StringLength(50)]
+        public string RequestMethod { get; set; }
         [Required]
-        public string FullException { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
+        public string RequestUrl { get; set; }
+        [Required]
+        public string ResponseContentHeaders { get; set; }
+        public string ResponseContentString { get; set; }
+        public string ResponseReasonPhrase { get; set; }
+        public int ResponseStatusCode { get; set; }
         public DateTimeOffset RowCreationDateTime { get; set; }
         [Required]
         [StringLength(256)]
