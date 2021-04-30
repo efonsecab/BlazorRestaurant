@@ -1,4 +1,5 @@
-﻿using BlazorRestaurant.DataAccess.Interfaces;
+﻿using BlazorRestaurant.Common.Interfaces;
+using BlazorRestaurant.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,15 @@ namespace BlazorRestaurant.DataAccess.Data
 {
     public partial class BlazorRestaurantDbContext
     {
+        private ICurrentUserProvider CurrentUserProvider { get; }
+
+        public BlazorRestaurantDbContext(DbContextOptions<BlazorRestaurantDbContext> options, 
+            ICurrentUserProvider currentUserProvider): base(options)
+        {
+            this.CurrentUserProvider = currentUserProvider;
+        }
+
+
         public override int SaveChanges()
         {
             ValidateAndSetDefaults();
@@ -53,10 +63,7 @@ namespace BlazorRestaurant.DataAccess.Data
             {
                 ipAddresses = String.Join(",", GetCurrentHostIPv4Addresses());
                 assemblyFullName = System.Reflection.Assembly.GetEntryAssembly().FullName;
-                if (Thread.CurrentPrincipal != null && Thread.CurrentPrincipal.Identity != null)
-                    rowCretionUser = Thread.CurrentPrincipal.Identity.Name;
-                else
-                    rowCretionUser = "Unknown";
+                rowCretionUser = this.CurrentUserProvider.GetUsername();
             }
             foreach (var entity in entities)
             {
@@ -77,14 +84,7 @@ namespace BlazorRestaurant.DataAccess.Data
                     }
                     if (String.IsNullOrWhiteSpace(entityWithOriginator.RowCreationUser))
                     {
-                        try
-                        {
-                            entityWithOriginator.RowCreationUser = rowCretionUser;
-                        }
-                        catch (Exception)
-                        {
-                            entityWithOriginator.RowCreationUser = "Unknown";
-                        }
+                        entityWithOriginator.RowCreationUser = rowCretionUser;
                     }
                 }
                 var validationContext = new ValidationContext(entity);
