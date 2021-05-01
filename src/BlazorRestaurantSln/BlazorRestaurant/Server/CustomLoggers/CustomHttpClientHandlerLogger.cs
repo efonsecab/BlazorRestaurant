@@ -70,14 +70,12 @@ namespace BlazorRestaurant.Server.CustomLoggers
                     JsonSerializer.Deserialize<CustomHttpClientHandlerRequestResponseModel>(message);
                 if (model != null)
                 {
-                    using (var scope = this.ServiceScopeFactory.CreateScope())
-                    {
-                        var dbContext = scope.ServiceProvider.GetRequiredService<BlazorRestaurantDbContext>();
-                        var entity = this.Mapper
-                            .Map<CustomHttpClientHandlerRequestResponseModel, ExternalRequestTracking>(model);
-                        await dbContext.ExternalRequestTracking.AddAsync(entity);
-                        await dbContext.SaveChangesAsync();
-                    }
+                    using var scope = this.ServiceScopeFactory.CreateScope();
+                    var dbContext = scope.ServiceProvider.GetRequiredService<BlazorRestaurantDbContext>();
+                    var entity = this.Mapper
+                        .Map<CustomHttpClientHandlerRequestResponseModel, ExternalRequestTracking>(model);
+                    await dbContext.ExternalRequestTracking.AddAsync(entity);
+                    await dbContext.SaveChangesAsync();
                 }
             }
         }
