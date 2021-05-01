@@ -49,4 +49,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ExternalRequestTrackingId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="e24a0b2a-ada3-4387-a645-c445057cccd4" ChangeDateTime="05/01/2021 21:05:18">
+    <Property Name="ElementName" Value="[dbo].[ServerStartConfiguration].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ServerStartConfiguration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ServerStartConfigurationId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d7229e65-bbe6-44b8-80b7-d39f976f4e96" ChangeDateTime="05/01/2021 21:05:56">
+    <Property Name="ElementName" Value="[dbo].[SystemConfiguration].[ServerStartConfigurationId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SystemConfiguration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SystemConfigurationId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5184481f-256a-4f61-9f37-dbf968c9c3e8" ChangeDateTime="05/01/2021 21:07:22">
+    <Property Name="ElementName" Value="[dbo].[SystemConfiguration].[ServerStartConfiguration]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SystemConfiguration]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
 </Operations>

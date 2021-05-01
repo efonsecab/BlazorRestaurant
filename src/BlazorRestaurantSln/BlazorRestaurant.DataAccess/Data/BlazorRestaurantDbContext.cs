@@ -25,6 +25,7 @@ namespace BlazorRestaurant.DataAccess.Data
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ExternalRequestTracking> ExternalRequestTracking { get; set; }
         public virtual DbSet<Promotion> Promotion { get; set; }
+        public virtual DbSet<SystemConfiguration> SystemConfiguration { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

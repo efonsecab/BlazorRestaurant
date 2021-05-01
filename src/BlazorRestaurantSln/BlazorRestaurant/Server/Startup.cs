@@ -59,8 +59,9 @@ namespace BlazorRestaurant.Server
         {
             GlobalPackageConfiguration.RapidApiKey = Configuration["PTIMicroservicesLibraryConfiguration:RapidApiKey"];
 
+            var azureAdB2CSection = Configuration.GetSection("AzureAdB2C");
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddMicrosoftIdentityWebApi(Configuration.GetSection("AzureAdB2C"));
+                .AddMicrosoftIdentityWebApi(azureAdB2CSection);
             services.Configure<JwtBearerOptions>(
                 JwtBearerDefaults.AuthenticationScheme, options =>
                 {
@@ -81,6 +82,7 @@ namespace BlazorRestaurant.Server
                 BlazorRestaurantDbContext blazorRestaurantDbContext = CreateBlazorRestaurantDbContext(serviceProvide);
                 return blazorRestaurantDbContext;
             });
+
             services.AddAutoMapper(configAction =>
             {
                 configAction.AddMaps(new[] { typeof(Startup).Assembly });
