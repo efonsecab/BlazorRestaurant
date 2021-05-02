@@ -68,6 +68,8 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
 
                     dest.ProductType = null;
                 });
+
+            this.CreateMap<ProductType, ProductTypeModel>().ReverseMap();
         }
     }
 }
