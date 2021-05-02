@@ -55,5 +55,16 @@ namespace BlazorRestaurant.Server.Controllers
             }
             return Ok();
         }
+
+        /// <summary>
+        /// Lists all of the Product Types
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<ProductTypeModel[]> ListProductTypes()
+        {
+            return await this.BlazorRestaurantDbContext.ProductType
+                .Select(p => this.Mapper.Map<ProductType, ProductTypeModel>(p)).ToArrayAsync();
+        }
     }
 }

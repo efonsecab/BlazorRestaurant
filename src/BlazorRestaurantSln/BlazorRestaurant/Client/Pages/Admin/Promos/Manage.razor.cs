@@ -36,7 +36,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Promos
 
         private bool ShowSelectImageComponent { get; set; } = false;
         private HttpClient AuthorizedHttpClient { get; set; }
-        private bool IsLoading { get; set; }
+        private bool IsLoading { get; set; } = false;
 
         protected override void OnInitialized()
         {

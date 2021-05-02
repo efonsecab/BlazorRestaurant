@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BlazorRestaurant.Server.Controllers.Tests
 {
     [TestClass()]
-    public class ProductControllerTests: TestsBase
+    public class ProductControllerTests : TestsBase
     {
         private static readonly ProductModel TestProductModel = new()
         {
@@ -42,6 +42,16 @@ namespace BlazorRestaurant.Server.Controllers.Tests
                 var content = await response.Content.ReadAsStringAsync();
                 Assert.Fail(content);
             }
+        }
+
+        [TestMethod()]
+        public async Task ListProductTypesTestAsync()
+        {
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var allProductTypes = await authorizedHttpClient
+                .GetFromJsonAsync<ProductTypeModel[]>("api/Product/ListProductTypes");
+            Assert.IsNotNull(allProductTypes);
+            Assert.IsTrue(allProductTypes.Length > 0);
         }
     }
 }

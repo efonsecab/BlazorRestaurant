@@ -26,6 +26,9 @@ namespace BlazorRestaurant.Shared.Global
             public const string EditOrder = "/Admin/Orders/Manage/{OrderId:long}";
             public const string ErrorsLogPowerBI = "/Admin/Errors/ErrorsPowerBI";
             public const string ErrorLog = "/Admin/Errors/ErrorLog";
+            public const string AddProduct = "/Admin/Products/Manage";
+            public const string EditProduct = "/Admin/Products/Manage/{ProductId:int}";
+            public const string ListProducts = "/Admin/Products/List";
         }
     }
 }

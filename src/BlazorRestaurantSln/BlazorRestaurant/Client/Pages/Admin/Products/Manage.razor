@@ -1,0 +1,30 @@
+﻿@layout AdminLayout
+
+<h3>@PageHeader</h3>
+
+<EditForm Model="ProductModel" OnValidSubmit="OnValidSubmitAsync">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="mb-3">
+        <label class="form-label">@nameof(this.ProductModel.Name)</label>
+        <InputText class="form-control" placeholder="Type your product's name"
+                   @bind-Value="this.ProductModel.Name"></InputText>
+    </div>
+    <div class="mb-3">
+        <label class="form-label"></label>
+        <InputTextArea class="form-control" @bind-Value="this.ProductModel.Description" rows="10" cols="200"></InputTextArea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Product Type</label>
+        <InputSelect class="form-control" @bind-Value="ProductModel.ProductTypeId">
+            @if (this.AllProductTypes != null)
+            {
+                foreach (var singleProductType in this.AllProductTypes)
+                {
+                    <option value="@singleProductType.ProductTypeId">@singleProductType.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+    <button class="btn btn-primary" type="Submit">Submit</button>
+</EditForm>
