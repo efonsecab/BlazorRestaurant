@@ -131,6 +131,25 @@
             <param name="imageName"></param>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.ProductController">
+            <summary>
+            In charge of products management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ProductController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.AddProduct(BlazorRestaurant.Shared.Products.ProductModel)">
+            <summary>
+            Add a new product
+            <paramref name="productModel"/>
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">
             <summary>
             In charge of promotions management

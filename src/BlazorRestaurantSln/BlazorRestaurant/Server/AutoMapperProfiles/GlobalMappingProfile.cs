@@ -2,6 +2,7 @@
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.AzureMaps;
 using BlazorRestaurant.Shared.Errors;
+using BlazorRestaurant.Shared.Products;
 using BlazorRestaurant.Shared.Promos;
 using BlazorRestaurant.Shared.User;
 using PTI.Microservices.Library.Models.AzureMapsService.GetSearchPOI;
@@ -16,7 +17,7 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
     /// <summary>
     /// Global Autmapper Configuration
     /// </summary>
-    public class GlobalMappingProfile: Profile
+    public class GlobalMappingProfile : Profile
     {
         /// <summary>
         /// Sets how types are going to be mapped by AutoMapper
@@ -38,21 +39,35 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
             }).ToArray());
 
 
-            this.CreateMap<CustomHttpClientHandlerRequestResponseModel, 
-                ExternalRequestTracking>().ConstructUsing(p => new ExternalRequestTracking() 
-            {
-                RequestContentHeaders = p.RequestContentHeaders,
-                RequestContentString=p.RequestContentString,
-                RequestHeaders=p.RequestHeaders,
-                RequestMethod=p.RequestMethod.Method,
-                RequestUrl=p.RequestUrl.ToString(),
-                ResponseContentHeaders=p.ResponseContentHeaders,
-                ResponseContentString=p.ResponseContentString,
-                ResponseReasonPhrase=p.ResponseReasonPhrase,
-                ResponseStatusCode = (int)p.ResponseStatusCode
-            });
+            this.CreateMap<CustomHttpClientHandlerRequestResponseModel,
+                ExternalRequestTracking>().ConstructUsing(p => new ExternalRequestTracking()
+                {
+                    RequestContentHeaders = p.RequestContentHeaders,
+                    RequestContentString = p.RequestContentString,
+                    RequestHeaders = p.RequestHeaders,
+                    RequestMethod = p.RequestMethod.Method,
+                    RequestUrl = p.RequestUrl.ToString(),
+                    ResponseContentHeaders = p.ResponseContentHeaders,
+                    ResponseContentString = p.ResponseContentString,
+                    ResponseReasonPhrase = p.ResponseReasonPhrase,
+                    ResponseStatusCode = (int)p.ResponseStatusCode
+                });
 
             this.CreateMap<ErrorLog, ErrorLogModel>().ReverseMap();
+
+            this.CreateMap<Product, ProductModel>().AfterMap(
+                afterFunction: (source, dest) =>
+                {
+                    if (source.ProductType != null)
+                        dest.ProductTypeName = source.ProductType.Name;
+                });
+
+            this.CreateMap<ProductModel, Product>().AfterMap(
+                afterFunction: (source, dest) =>
+                {
+
+                    dest.ProductType = null;
+                });
         }
     }
 }

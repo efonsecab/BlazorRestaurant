@@ -1,7 +1,8 @@
 ﻿CREATE TABLE [products].[Product]
 (
 	[ProductId] INT NOT NULL CONSTRAINT PK_Product PRIMARY KEY IDENTITY, 
-    [Name] NVARCHAR(50) NOT NULL, 
+    [Name] NVARCHAR(50) NOT NULL,
+    [Description] NVARCHAR(50) NOT NULL,
     [ProductTypeId] SMALLINT NOT NULL,
     [RowCreationDateTime] DATETIMEOFFSET NOT NULL, 
     [RowCreationUser] NVARCHAR(256) NOT NULL,

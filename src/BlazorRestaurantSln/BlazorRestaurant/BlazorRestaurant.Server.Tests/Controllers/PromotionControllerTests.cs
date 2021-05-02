@@ -16,7 +16,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
     [TestClass()]
     public class PromotionControllerTests : TestsBase
     {
-        private static PromotionModel TestPromotionModel = new PromotionModel()
+        private static readonly PromotionModel TestPromotionModel = new()
         {
             Name = "TESTPROMOTION",
             ImageUrl = "TESTPROMOTIONURL",

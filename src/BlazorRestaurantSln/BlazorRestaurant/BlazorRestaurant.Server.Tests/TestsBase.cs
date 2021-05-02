@@ -31,6 +31,24 @@ namespace BlazorRestaurant.Server.Tests
             IConfiguration configuration = configurationBuilder.Build();
             Configuration = configuration;
             Server = new TestServer(new WebHostBuilder()
+                .ConfigureAppConfiguration((hostingContext, configurationBuilder) =>
+                {
+                    IConfigurationRoot configurationRoot = configurationBuilder.Build();
+
+                    var defaultConnectionString = configurationRoot.GetConnectionString("Default");
+                    DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder = new();
+
+                    using BlazorRestaurantDbContext blazorRestaurantDbContext =
+                    new(dbContextOptionsBuilder.UseSqlServer(defaultConnectionString,
+                    sqlServerOptionsAction: (serverOptions) => serverOptions.EnableRetryOnFailure(3)).Options);
+
+                    var systemStartConfig = blazorRestaurantDbContext.SystemConfiguration.Where(p => p.Name == "ServerStartConfiguration")
+                    .Select(p => p.Value).Single();
+
+                    var systemConfigBytes = System.Text.Encoding.UTF8.GetBytes(systemStartConfig);
+                    MemoryStream systemConfigStream = new(systemConfigBytes);
+                    configurationBuilder.AddJsonStream(systemConfigStream);
+                })
                 .UseConfiguration(configuration)
                 .UseStartup<Startup>());
 
