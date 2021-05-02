@@ -17,6 +17,9 @@ namespace BlazorRestaurant.DataAccess.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Description { get; set; }
         public short ProductTypeId { get; set; }
         public DateTimeOffset RowCreationDateTime { get; set; }
         [Required]
