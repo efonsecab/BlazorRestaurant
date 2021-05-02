@@ -21,6 +21,11 @@ namespace BlazorRestaurant.DataAccess.Models
         [StringLength(50)]
         public string Description { get; set; }
         public short ProductTypeId { get; set; }
+        [Required]
+        [StringLength(1000)]
+        public string ImageUrl { get; set; }
+        [Column(TypeName = "money")]
+        public decimal UnitPrice { get; set; }
         public DateTimeOffset RowCreationDateTime { get; set; }
         [Required]
         [StringLength(256)]

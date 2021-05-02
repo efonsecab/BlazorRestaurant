@@ -4,6 +4,8 @@
     [Name] NVARCHAR(50) NOT NULL,
     [Description] NVARCHAR(50) NOT NULL,
     [ProductTypeId] SMALLINT NOT NULL,
+    [ImageUrl] NVARCHAR(1000) NOT NULL,
+    [UnitPrice] MONEY NOT NULL,
     [RowCreationDateTime] DATETIMEOFFSET NOT NULL, 
     [RowCreationUser] NVARCHAR(256) NOT NULL,
     [SourceApplication] NVARCHAR(250) NOT NULL, 

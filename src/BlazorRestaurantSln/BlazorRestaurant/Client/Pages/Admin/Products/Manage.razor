@@ -11,8 +11,12 @@
                    @bind-Value="this.ProductModel.Name"></InputText>
     </div>
     <div class="mb-3">
-        <label class="form-label"></label>
+        <label class="form-label">@nameof(this.ProductModel.Description)</label>
         <InputTextArea class="form-control" @bind-Value="this.ProductModel.Description" rows="10" cols="200"></InputTextArea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">@nameof(this.ProductModel.UnitPrice)</label>
+        <InputNumber @bind-Value="this.ProductModel.UnitPrice"></InputNumber>
     </div>
     <div class="mb-3">
         <label class="form-label">Product Type</label>
@@ -26,5 +30,14 @@
             }
         </InputSelect>
     </div>
+    <div class="mb-3">
+        <button class="btn btn-secondary" @onclick="OpenSelectImage">Select an Image</button>
+    </div>
+    @if (this.ShowSelectImageComponent)
+    {
+        <div class="mb-3">
+            <ImageSelectionComponent OnImageSelected="OnImageSelected"></ImageSelectionComponent>
+        </div>
+    }
     <button class="btn btn-primary" type="Submit">Submit</button>
 </EditForm>
