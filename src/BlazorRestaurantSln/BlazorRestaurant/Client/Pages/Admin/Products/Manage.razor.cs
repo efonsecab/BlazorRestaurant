@@ -32,6 +32,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
         private HttpClient AuthorizedHttpClientService { get; set; }
         private ProductTypeModel[] AllProductTypes { get; set; }
         private bool IsLoading { get; set; } = false;
+        private bool ShowSelectImageComponent { get; set; } = false;
 
         protected async override Task OnInitializedAsync()
         {
@@ -55,7 +56,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
                 }
                 else
                 {
-                    await ToastifyService.DisplaySuccessNotification("Products has been created");
+                    await ToastifyService.DisplaySuccessNotification($"Product '{this.ProductModel.Name}' has been created");
                     NavigationManager.NavigateTo(Constants.AdminPagesRoutes.ListProducts);
 
                 }
@@ -68,6 +69,18 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             {
                 IsLoading = false;
             }
+        }
+
+        private void OpenSelectImage()
+        {
+            this.ShowSelectImageComponent = true;
+        }
+
+        private void OnImageSelected(string imageUrl)
+        {
+            this.ProductModel.ImageUrl = imageUrl;
+            this.ShowSelectImageComponent = false;
+            StateHasChanged();
         }
     }
 }

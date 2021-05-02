@@ -17,5 +17,9 @@ namespace BlazorRestaurant.Shared.Products
         public string Description { get; set; }
         public short ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }
+        [Url]
+        [Required]
+        public string ImageUrl { get; set; }
+        public decimal UnitPrice { get; set; }
     }
 }
