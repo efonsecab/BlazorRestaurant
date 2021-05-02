@@ -63,6 +63,7 @@
     <Folder Include="promo" />
     <Folder Include="promo\Tables" />
     <Folder Include="Security" />
+    <Folder Include="products" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\ApplicationUser.sql" />
@@ -73,6 +74,9 @@
     <Build Include="Security\promo.sql" />
     <Build Include="dbo\Tables\ExternalRequestTracking.sql" />
     <Build Include="dbo\Tables\SystemConfiguration.sql" />
+    <Build Include="products\Product.sql" />
+    <Build Include="Security\products.sql" />
+    <Build Include="products\ProductType.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BlazorRestaurantDatabase.refactorlog" />
