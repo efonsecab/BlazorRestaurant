@@ -24,6 +24,8 @@ namespace BlazorRestaurant.DataAccess.Data
         public virtual DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ExternalRequestTracking> ExternalRequestTracking { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<ProductType> ProductType { get; set; }
         public virtual DbSet<Promotion> Promotion { get; set; }
         public virtual DbSet<SystemConfiguration> SystemConfiguration { get; set; }
 
@@ -44,6 +46,15 @@ namespace BlazorRestaurant.DataAccess.Data
                     .HasForeignKey<ApplicationUserRole>(d => d.ApplicationUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ApplicationUserRole_ApplicationUser");
+            });
+
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.HasOne(d => d.ProductType)
+                    .WithMany(p => p.Product)
+                    .HasForeignKey(d => d.ProductTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_ProductType");
             });
 
             OnModelCreatingPartial(modelBuilder);
