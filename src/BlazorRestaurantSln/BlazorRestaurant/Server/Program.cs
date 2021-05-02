@@ -46,7 +46,7 @@ namespace BlazorRestaurant.Server
                        new(dbContextOptionsBuilder.UseSqlServer(defaultConnectionString,
                        sqlServerOptionsAction: (serverOptions) => serverOptions.EnableRetryOnFailure(3)).Options);
 
-                       var systemStartConfig = blazorRestaurantDbContext.SystemConfiguration.Where(p => p.Name == "ServerStartConfiguration")
+                       var systemStartConfig = blazorRestaurantDbContext.SystemConfiguration.Where(p => p.Name == "SystemStartConfiguration")
                        .Select(p => p.Value).Single();
 
                        var systemConfigBytes = System.Text.Encoding.UTF8.GetBytes(systemStartConfig);

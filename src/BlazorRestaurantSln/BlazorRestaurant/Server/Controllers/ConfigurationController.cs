@@ -51,5 +51,27 @@ namespace BlazorRestaurant.Server.Controllers
         {
             return this.SystemConfiguration.ErrorLogPowerBIUrl;
         }
+
+        /// <summary>
+        /// Returns the Client Azure Ad B2C Configuration
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [AllowAnonymous]
+        public ClientAzureAdB2CConfiguration GetClientAzureAdB2CConfiguration()
+        {
+            return this.SystemConfiguration.ClientAzureAdB2CConfiguration;
+        }
+
+        /// <summary>
+        /// Returns the Client Azure Ad B2C Scope
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [AllowAnonymous]
+        public string GetClientAzureAdB2CScope()
+        {
+            return this.SystemConfiguration.ClientAzureAdB2CScope;
+        }
     }
 }

@@ -83,6 +83,18 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.GetClientAzureAdB2CConfiguration">
+            <summary>
+            Returns the Client Azure Ad B2C Configuration
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.GetClientAzureAdB2CScope">
+            <summary>
+            Returns the Client Azure Ad B2C Scope
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ErrorController">
             <summary>
             In charge of errorrs management
