@@ -162,6 +162,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.GetProductById(System.Int32)">
+            <summary>
+            Gets a product by Id
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">
             <summary>
             In charge of promotions management

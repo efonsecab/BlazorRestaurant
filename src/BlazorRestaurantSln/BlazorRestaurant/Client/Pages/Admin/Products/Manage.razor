@@ -41,3 +41,10 @@
     }
     <button class="btn btn-primary" type="Submit">Submit</button>
 </EditForm>
+
+@if (!String.IsNullOrWhiteSpace(this.ProductModel.ImageUrl))
+{
+    <div class="mb-3">
+        <img class="img-thumbnail" src="@this.ProductModel.ImageUrl" />
+    </div>
+}

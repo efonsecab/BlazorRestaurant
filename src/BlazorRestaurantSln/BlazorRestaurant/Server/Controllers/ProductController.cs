@@ -77,5 +77,22 @@ namespace BlazorRestaurant.Server.Controllers
             return await this.BlazorRestaurantDbContext
                 .Product.Select(p => this.Mapper.Map<Product, ProductModel>(p)).ToArrayAsync();
         }
+
+        /// <summary>
+        /// Gets a product by Id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<ProductModel> GetProductById(int productId)
+        {
+            var result = await this.BlazorRestaurantDbContext.Product.Where(p => p.ProductId == productId)
+                .Select(p=>this.Mapper.Map<Product, ProductModel>(p))
+                .SingleOrDefaultAsync();
+            if (result == null)
+                throw new Exception($"There is no product with Id: {productId}");
+            else
+                return result;
+        }
     }
 }

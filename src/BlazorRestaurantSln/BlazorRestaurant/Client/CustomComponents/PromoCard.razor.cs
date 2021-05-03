@@ -18,5 +18,9 @@ namespace BlazorRestaurant.Client.CustomComponents
         public bool EnableDelete { get; set; }
         [Parameter]
         public Action DeleteAction { get; set; }
+        [Parameter]
+        public bool EnableEdit { get; set; }
+        [Parameter]
+        public Action EditAction { get; set; }
     }
 }
