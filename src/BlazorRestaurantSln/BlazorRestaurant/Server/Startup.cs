@@ -190,7 +190,6 @@ namespace BlazorRestaurant.Server
                             this.CreateBlazorRestaurantDbContext(context.RequestServices);
                             await blazorRestaurantDbContext.ErrorLog.AddAsync(new BlazorRestaurant.DataAccess.Models.ErrorLog()
                             {
-                                CreatedAt = DateTimeOffset.UtcNow,
                                 FullException = error.ToString(),
                                 StackTrace = error.StackTrace,
                                 Message = error.Message
