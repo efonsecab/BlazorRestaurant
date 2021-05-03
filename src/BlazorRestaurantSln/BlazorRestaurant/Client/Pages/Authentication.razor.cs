@@ -1,5 +1,6 @@
 ﻿using BlazorRestaurant.Client.Extensions;
 using BlazorRestaurant.Client.Services;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.User;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -47,7 +48,16 @@ namespace BlazorRestaurant.Client.Pages
             }
             else
             {
-                NavigationManager.NavigateTo("/Admin/Index");
+                var role = authState.User.Claims.SingleOrDefault(p=>p.Type == "Role").Value;
+                switch (role)
+                {
+                    case Constants.Roles.Admin: 
+                        NavigationManager.NavigateTo(Constants.AdminPagesRoutes.AdminIndex);
+                        break;
+                    case Constants.Roles.User:
+                        NavigationManager.NavigateTo(Constants.UserPagesRoutes.UserIndex);
+                        break;
+                }
             }
         }
 
