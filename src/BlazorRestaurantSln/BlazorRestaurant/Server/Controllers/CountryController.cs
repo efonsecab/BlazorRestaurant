@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.Countries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,8 +18,15 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CountryController : ControllerBase
     {
+        private static CountryModel TestCountryModel =
+            new CountryModel()
+            {
+                Name = "TESt COUNTRY",
+                Isocode = "N/A"
+            };
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
         private IMapper Mapper { get; }
 

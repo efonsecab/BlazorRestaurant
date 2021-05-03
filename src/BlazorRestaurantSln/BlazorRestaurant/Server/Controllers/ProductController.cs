@@ -18,6 +18,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
