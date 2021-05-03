@@ -55,8 +55,9 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             try
             {
                 IsLoading = true;
+                string requestUrl = IsEdit ? "api/Product/EditProduct" : "api/Product/AddProduct";
                 var response = await this.AuthorizedHttpClientService
-                    .PostAsJsonAsync<ProductModel>("api/Product/AddProduct", this.ProductModel);
+                    .PostAsJsonAsync<ProductModel>(requestUrl, this.ProductModel);
                 if (!response.IsSuccessStatusCode)
                 {
                     var problemHttpResponse = await response.Content.ReadFromJsonAsync<ProblemHttpResponse>();
@@ -64,7 +65,9 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
                 }
                 else
                 {
-                    await ToastifyService.DisplaySuccessNotification($"Product '{this.ProductModel.Name}' has been created");
+                    string actionMessage = IsEdit ? "edited" : "created";
+                    await ToastifyService.DisplaySuccessNotification($"Product '{this.ProductModel.Name}' " +
+                        $"has been {actionMessage}");
                     NavigationManager.NavigateTo(Constants.AdminPagesRoutes.ListProducts);
 
                 }
