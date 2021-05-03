@@ -156,6 +156,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.ListProducts">
+            <summary>
+            Returns a list of all the products
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">
             <summary>
             In charge of promotions management

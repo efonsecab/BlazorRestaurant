@@ -53,5 +53,15 @@ namespace BlazorRestaurant.Server.Controllers.Tests
             Assert.IsNotNull(allProductTypes);
             Assert.IsTrue(allProductTypes.Length > 0);
         }
+
+        [TestMethod()]
+        public async Task ListProductsTestAsync()
+        {
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var allProducts = await authorizedHttpClient
+                .GetFromJsonAsync<ProductModel[]>("api/Product/ListProducts");
+            Assert.IsNotNull(allProducts);
+            Assert.IsTrue(allProducts.Length > 0);
+        }
     }
 }
