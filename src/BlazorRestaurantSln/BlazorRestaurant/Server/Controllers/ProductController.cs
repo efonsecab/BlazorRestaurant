@@ -94,5 +94,25 @@ namespace BlazorRestaurant.Server.Controllers
             else
                 return result;
         }
+
+        /// <summary>
+        /// Deletes the product with the specified Id
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            var productEntity = await this.BlazorRestaurantDbContext.Product.SingleOrDefaultAsync(p => p.ProductId == productId);
+            if (productEntity == null)
+                throw new Exception($"There is not product with Id: {productId}");
+            else
+            {
+                this.BlazorRestaurantDbContext.Product.Remove(productEntity);
+                await this.BlazorRestaurantDbContext.SaveChangesAsync();
+                return Ok();
+            }
+
+        }
     }
 }

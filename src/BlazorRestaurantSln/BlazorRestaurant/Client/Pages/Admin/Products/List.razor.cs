@@ -1,4 +1,5 @@
 ﻿using BlazorRestaurant.Client.Services;
+using BlazorRestaurant.Shared.CustomHttpResponses;
 using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Products;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             {
                 IsLoading = true;
                 this.AuthorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
-                this.AllProducts = await this.AuthorizedHttpClient.GetFromJsonAsync<ProductModel[]>("api/Product/ListProducts");
+                await LoadProducts();
             }
             catch (Exception ex)
             {
@@ -47,11 +48,53 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             }
         }
 
+        private async Task LoadProducts()
+        {
+            this.AllProducts = await this.AuthorizedHttpClient.GetFromJsonAsync<ProductModel[]>("api/Product/ListProducts");
+        }
+
         private void ShowConfirmDeleteModal(ProductModel selectedProductModel)
         {
             this.ShouldShowConfirmDeleteModal = true;
             this.SelectedProductModel = selectedProductModel;
             StateHasChanged();
+        }
+
+        private void HideConfirmDeleteDialog()
+        {
+            this.ShouldShowConfirmDeleteModal = false;
+            this.SelectedProductModel = null;
+        }
+
+        private async Task DeleteSelectedPromotion()
+        {
+            try
+            {
+                IsLoading = true;
+                var response = await this.AuthorizedHttpClient
+                    .DeleteAsync($"api/Product/DeleteProduct?productId={this.SelectedProductModel.ProductId}");
+                if (!response.IsSuccessStatusCode)
+                {
+                    var problemHttpResponse = await response.Content.ReadFromJsonAsync<ProblemHttpResponse>();
+                    await this.ToastifyService.DisplayErrorNotification(problemHttpResponse.Detail);
+                }
+                else
+                {
+                    await this.ToastifyService.DisplaySuccessNotification($"Product '{this.SelectedProductModel.Name}' has been deleted");
+                }
+            }
+            catch (Exception ex)
+            {
+                await this.ToastifyService.DisplayErrorNotification(ex.Message);
+            }
+            finally
+            {
+                this.SelectedProductModel= null;
+                this.HideConfirmDeleteDialog();
+                await this.LoadProducts();
+                IsLoading = false;
+                StateHasChanged();
+            }
         }
 
         private void EditProduct(ProductModel selectedProductModel)

@@ -188,6 +188,13 @@
             <param name="productId"></param>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.DeleteProduct(System.Int32)">
+            <summary>
+            Deletes the product with the specified Id
+            </summary>
+            <param name="productId"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.PromotionController">
             <summary>
             In charge of promotions management

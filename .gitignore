@@ -352,4 +352,5 @@ MigrationBackup/
 # User-Defined Files
 appsettings.Development.json
 efpt.config.json
+/src/BlazorRestaurantSln/BlazorRestaurant/Server/Properties/ServiceDependencies/BlazorRestaurantDevDemo - Web Deploy/profile.arm.json
 /src/BlazorRestaurantSln/BlazorRestaurant/Server/Properties/ServiceDependencies/BlazorRestaurantDevDemo - Web Deploy
