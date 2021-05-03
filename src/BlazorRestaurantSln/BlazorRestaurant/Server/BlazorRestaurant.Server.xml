@@ -83,6 +83,25 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.CountryController">
+            <summary>
+            In charge of country management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.CountryController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.CountryController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.CountryController.ListCountries(System.String)">
+            <summary>
+            List all of countries
+            </summary>
+            <param name="searchTerm"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ErrorController">
             <summary>
             In charge of errorrs management
