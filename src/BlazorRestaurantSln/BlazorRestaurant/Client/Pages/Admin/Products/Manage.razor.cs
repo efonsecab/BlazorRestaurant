@@ -39,7 +39,15 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             this.AuthorizedHttpClientService = this.HttpClientService.CreateAuthorizedClient();
             this.AllProductTypes = await this.AuthorizedHttpClientService
                 .GetFromJsonAsync<ProductTypeModel[]>("api/Product/ListProductTypes");
-            this.ProductModel.ProductTypeId = this.AllProductTypes[0].ProductTypeId;
+            if (this.IsEdit)
+            {
+                this.ProductModel = await this.AuthorizedHttpClientService
+                    .GetFromJsonAsync<ProductModel>($"api/Product/GetProductById?productId={this.ProductId}");
+            }
+            else
+            {
+                this.ProductModel.ProductTypeId = this.AllProductTypes[0].ProductTypeId;
+            }
         }
 
         private async Task OnValidSubmitAsync()

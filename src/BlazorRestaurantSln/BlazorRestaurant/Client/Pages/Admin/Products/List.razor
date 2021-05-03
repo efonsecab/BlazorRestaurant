@@ -1,3 +1,28 @@
 ﻿@layout AdminLayout
 
 <h3>Products List</h3>
+
+<LoadingComponent IsLoading="@IsLoading"></LoadingComponent>
+@if (this.AllProducts != null)
+{
+    for (int iPage = 0; iPage < this.TotalPages; iPage++)
+    {
+        var pageItems = this.AllProducts.Skip(iPage * 2).Take(2);
+        <div class="card-group">
+            @foreach (var singlePageItem in pageItems)
+            {
+                <PromoCard CardTitle="@singlePageItem.Name"
+                           CardBodyText="@singlePageItem.Description"
+                           EnableDelete="true"
+                           DeleteAction="@( () => ShowConfirmDeleteModal(singlePageItem))"
+                           EnableEdit="true"
+                           EditAction="@( () => EditProduct(singlePageItem))"
+                           >
+                    <Image>
+                        <img src="@singlePageItem.ImageUrl" class="card-img-top" alt="..." style="height:300px;">
+                    </Image>
+                </PromoCard>
+            }
+        </div>
+    }
+}
