@@ -57,6 +57,28 @@ namespace BlazorRestaurant.Server.Controllers
         }
 
         /// <summary>
+        /// Edits the specified product
+        /// </summary>
+        /// <param name="productModel"></param>
+        /// <returns></returns>
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<IActionResult> EditProduct(ProductModel productModel)
+        {
+            var productEntity = await this.BlazorRestaurantDbContext.Product
+                .Where(p => p.Name == productModel.Name).AsNoTracking().SingleOrDefaultAsync();
+            if (productEntity == null)
+                throw new Exception($"There is no product with Id: {productModel.ProductId}");
+            else
+            {
+                productEntity = this.Mapper.Map<ProductModel, Product>(productModel);
+                this.BlazorRestaurantDbContext.Product.Update(productEntity);
+                await this.BlazorRestaurantDbContext.SaveChangesAsync();
+            }
+            return Ok();
+        }
+
+        /// <summary>
         /// Lists all of the Product Types
         /// </summary>
         /// <returns></returns>

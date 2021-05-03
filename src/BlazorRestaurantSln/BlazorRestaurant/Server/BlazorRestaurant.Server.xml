@@ -169,6 +169,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.ProductController.EditProduct(BlazorRestaurant.Shared.Products.ProductModel)">
+            <summary>
+            Edits the specified product
+            </summary>
+            <param name="productModel"></param>
+            <returns></returns>
+        </member>
         <member name="M:BlazorRestaurant.Server.Controllers.ProductController.ListProductTypes">
             <summary>
             Lists all of the Product Types
