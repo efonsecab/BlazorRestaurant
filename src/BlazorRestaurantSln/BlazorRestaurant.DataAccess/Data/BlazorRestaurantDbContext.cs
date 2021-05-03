@@ -22,6 +22,7 @@ namespace BlazorRestaurant.DataAccess.Data
         public virtual DbSet<ApplicationRole> ApplicationRole { get; set; }
         public virtual DbSet<ApplicationUser> ApplicationUser { get; set; }
         public virtual DbSet<ApplicationUserRole> ApplicationUserRole { get; set; }
+        public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ExternalRequestTracking> ExternalRequestTracking { get; set; }
         public virtual DbSet<Product> Product { get; set; }
@@ -46,6 +47,18 @@ namespace BlazorRestaurant.DataAccess.Data
                     .HasForeignKey<ApplicationUserRole>(d => d.ApplicationUserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ApplicationUserRole_ApplicationUser");
+            });
+
+            modelBuilder.Entity<Country>(entity =>
+            {
+                entity.Property(e => e.Isocode)
+                    .IsRequired()
+                    .HasMaxLength(4)
+                    .HasColumnName("ISOCode");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<Product>(entity =>
