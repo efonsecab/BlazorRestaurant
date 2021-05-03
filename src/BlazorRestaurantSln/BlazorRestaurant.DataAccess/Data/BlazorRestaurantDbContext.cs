@@ -49,18 +49,6 @@ namespace BlazorRestaurant.DataAccess.Data
                     .HasConstraintName("FK_ApplicationUserRole_ApplicationUser");
             });
 
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.Property(e => e.Isocode)
-                    .IsRequired()
-                    .HasMaxLength(4)
-                    .HasColumnName("ISOCode");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
-
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.HasOne(d => d.ProductType)

@@ -16,8 +16,7 @@
                            EnableDelete="true"
                            DeleteAction="@( () => ShowConfirmDeleteModal(singlePageItem))"
                            EnableEdit="true"
-                           EditAction="@( () => EditProduct(singlePageItem))"
-                           >
+                           EditAction="@( () => EditProduct(singlePageItem))">
                     <Image>
                         <img src="@singlePageItem.ImageUrl" class="card-img-top" alt="..." style="height:300px;">
                     </Image>
@@ -25,4 +24,16 @@
             }
         </div>
     }
+}
+
+@if (this.ShouldShowConfirmDeleteModal)
+{
+    <ConfirmComponent CloseAction="HideConfirmDeleteDialog" CloseText="Cancel"
+                      OkAction="@(async () => await DeleteSelectedPromotion())"
+                      OkText="Delete"
+                      Title="Delete Product">
+        <BodyContent>
+            <p>Are you sure you want to deleted the selected product?</p>
+        </BodyContent>
+    </ConfirmComponent>
 }
