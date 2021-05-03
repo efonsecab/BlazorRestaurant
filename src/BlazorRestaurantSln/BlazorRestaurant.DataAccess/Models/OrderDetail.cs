@@ -9,28 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorRestaurant.DataAccess.Models
 {
-    [Table("Product", Schema = "products")]
-    public partial class Product
+    [Table("OrderDetail", Schema = "orders")]
+    [Index(nameof(OrderId), nameof(LineNumber), Name = "UI_OrderDetail_Line", IsUnique = true)]
+    [Index(nameof(OrderId), nameof(ProductId), Name = "UI_OrderDetail_Product", IsUnique = true)]
+    public partial class OrderDetail
     {
-        public Product()
-        {
-            OrderDetail = new HashSet<OrderDetail>();
-        }
-
         [Key]
+        public long OrderDetailId { get; set; }
+        public long OrderId { get; set; }
         public int ProductId { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string Description { get; set; }
-        public short ProductTypeId { get; set; }
-        [Required]
-        [StringLength(1000)]
-        public string ImageUrl { get; set; }
+        public int ProductQty { get; set; }
+        public int LineNumber { get; set; }
         [Column(TypeName = "money")]
-        public decimal UnitPrice { get; set; }
+        public decimal LineTotal { get; set; }
         public DateTimeOffset RowCreationDateTime { get; set; }
         [Required]
         [StringLength(256)]
@@ -43,10 +34,11 @@ namespace BlazorRestaurant.DataAccess.Models
         [StringLength(100)]
         public string OriginatorIpaddress { get; set; }
 
-        [ForeignKey(nameof(ProductTypeId))]
-        [InverseProperty("Product")]
-        public virtual ProductType ProductType { get; set; }
-        [InverseProperty("Product")]
-        public virtual ICollection<OrderDetail> OrderDetail { get; set; }
+        [ForeignKey(nameof(OrderId))]
+        [InverseProperty("OrderDetail")]
+        public virtual Order Order { get; set; }
+        [ForeignKey(nameof(ProductId))]
+        [InverseProperty("OrderDetail")]
+        public virtual Product Product { get; set; }
     }
 }

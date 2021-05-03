@@ -84,4 +84,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ProductTypeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7116cf1e-924e-4e08-8128-1d739a69fd24" ChangeDateTime="05/03/2021 15:50:27">
+    <Property Name="ElementName" Value="[orders].[Order].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[orders].[Order]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrderId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f1d7757c-288e-4212-819b-0525a8ac8a84" ChangeDateTime="05/03/2021 15:52:54">
+    <Property Name="ElementName" Value="[orders].[Order].[Latitude]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[orders].[Order]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DestinationLatitude" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="286c1ee6-8b0c-4948-90ad-0e23cae6a781" ChangeDateTime="05/03/2021 15:53:27">
+    <Property Name="ElementName" Value="[orders].[Order].[Longitude]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[orders].[Order]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DestinationLongitude" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4357de5c-316a-42f6-84cb-5315422d318a" ChangeDateTime="05/03/2021 15:54:40">
+    <Property Name="ElementName" Value="[orders].[OrderDetail].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[orders].[OrderDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrderDetailId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="efc0ba74-ee06-48f6-8d71-c3e6f4d94cf8" ChangeDateTime="05/03/2021 15:59:59">
+    <Property Name="ElementName" Value="[orders].[OrderDetail].[DestinationFreeFormAddress]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[orders].[OrderDetail]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ProductId" />
+  </Operation>
 </Operations>

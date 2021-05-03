@@ -9,28 +9,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorRestaurant.DataAccess.Models
 {
-    [Table("Product", Schema = "products")]
-    public partial class Product
+    [Table("Order", Schema = "orders")]
+    public partial class Order
     {
-        public Product()
+        public Order()
         {
             OrderDetail = new HashSet<OrderDetail>();
         }
 
         [Key]
-        public int ProductId { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string Name { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string Description { get; set; }
-        public short ProductTypeId { get; set; }
+        public long OrderId { get; set; }
         [Required]
         [StringLength(1000)]
-        public string ImageUrl { get; set; }
+        public string DestinationFreeFormAddress { get; set; }
+        public double DestinationLatitude { get; set; }
+        public double DestinationLongitude { get; set; }
         [Column(TypeName = "money")]
-        public decimal UnitPrice { get; set; }
+        public decimal Total { get; set; }
         public DateTimeOffset RowCreationDateTime { get; set; }
         [Required]
         [StringLength(256)]
@@ -43,10 +38,7 @@ namespace BlazorRestaurant.DataAccess.Models
         [StringLength(100)]
         public string OriginatorIpaddress { get; set; }
 
-        [ForeignKey(nameof(ProductTypeId))]
-        [InverseProperty("Product")]
-        public virtual ProductType ProductType { get; set; }
-        [InverseProperty("Product")]
+        [InverseProperty("Order")]
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
     }
 }
