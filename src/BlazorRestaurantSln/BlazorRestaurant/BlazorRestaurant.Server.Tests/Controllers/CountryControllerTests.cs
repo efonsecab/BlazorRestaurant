@@ -7,33 +7,39 @@ using System.Text;
 using System.Threading.Tasks;
 using BlazorRestaurant.Server.Tests;
 using BlazorRestaurant.DataAccess.Data;
+using BlazorRestaurant.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Json;
 
 namespace BlazorRestaurant.Server.Controllers.Tests
 {
     [TestClass()]
-    public class CountryControllerTests
+    public class CountryControllerTests : TestsBase
     {
-        private static readonly CountryController TestProductModel = new()
+        private static readonly Country TestCountryModel = new()
         {
-            Name = "AUTOMATED TEST PRODUCT",
-            Description = "TEST DESCRIPTION",
-            ProductTypeId = 1
+            Name = "COSTA RICA",
+            Isocode = "CRC"
         };
 
         [ClassCleanup]
         public static async Task CleanTests()
         {
             using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
-            var testEntity = await blazorRestaurantDbContext.Country.Where(p => p.Name == TestProductModel.Name).SingleAsync();
-            blazorRestaurantDbContext.Product.Remove(testEntity);
+            var testEntity = await blazorRestaurantDbContext.Country.Where(p => p.Name == TestCountryModel.Name).SingleAsync();
+            blazorRestaurantDbContext.Country.Remove(testEntity);
             await blazorRestaurantDbContext.SaveChangesAsync();
         }
 
 
         [TestMethod()]
-        public void ListCountriesTest()
+        public async Task ListCountriesTest()
         {
-            Assert.Fail();
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var allCountries = await authorizedHttpClient
+                .GetFromJsonAsync<Country[]>("api/Country/ListCountries=CostaRica");
+            Assert.IsNotNull(allCountries);
+            Assert.IsTrue(allCountries.Length > 0);
         }
     }
 }
