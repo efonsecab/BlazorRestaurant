@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BlazorRestaurant.DataAccess.Models
 {
+    [Index(nameof(Isocode), Name = "UI_Country_ISOCode", IsUnique = true)]
+    [Index(nameof(Name), Name = "UI_Country_Name", IsUnique = true)]
     public partial class Country
     {
         [Key]

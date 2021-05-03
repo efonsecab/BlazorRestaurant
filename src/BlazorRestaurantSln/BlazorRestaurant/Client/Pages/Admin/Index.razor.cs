@@ -6,8 +6,7 @@ namespace BlazorRestaurant.Client.Pages.Admin
 {
     [Authorize(Roles = Constants.Roles.Admin)]
     [Route(Constants.AdminPagesRoutes.AdminIndex)]
-    public partial class AdminIndex
+    public partial class Index
     {
-
     }
 }

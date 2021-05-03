@@ -11,11 +11,11 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace BlazorRestaurant.Client.Pages.Admin.Orders
+namespace BlazorRestaurant.Client.Pages.User.Orders
 {
-    [Authorize(Roles = Constants.Roles.Admin)]
-    [Route(Constants.AdminPagesRoutes.AddOrder)]
-    [Route(Constants.AdminPagesRoutes.EditOrder)]
+    [Authorize(Roles = Constants.Roles.User)]
+    [Route(Constants.UserPagesRoutes.AddOrder)]
+    [Route(Constants.UserPagesRoutes.EditOrder)]
     public partial class Manage
     {
         [Inject]
