@@ -10,6 +10,7 @@ using BlazorRestaurant.Shared.Products;
 using System.Net.Http.Json;
 using BlazorRestaurant.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using BlazorRestaurant.DataAccess.Models;
 
 namespace BlazorRestaurant.Server.Controllers.Tests
 {
@@ -20,7 +21,8 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         {
             Name = "AUTOMATED TEST PRODUCT",
             Description = "TEST DESCRIPTION",
-            ProductTypeId = 1
+            ProductTypeId = 1,
+            ImageUrl = "https://localhost/test.jpg"
         };
 
         [ClassCleanup]
@@ -62,6 +64,23 @@ namespace BlazorRestaurant.Server.Controllers.Tests
                 .GetFromJsonAsync<ProductModel[]>("api/Product/ListProducts");
             Assert.IsNotNull(allProducts);
             Assert.IsTrue(allProducts.Length > 0);
+        }
+
+        [TestMethod()]
+        public async Task DeleteProductTestAsync()
+        {
+            using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
+            var productEntity = base.Mapper.Map<ProductModel, Product>(TestProductModel);
+            await blazorRestaurantDbContext.Product.AddAsync(productEntity);
+            await blazorRestaurantDbContext.SaveChangesAsync();
+            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var response = await authorizedHttpClient.DeleteAsync($"api/Product/DeleteProduct?productId={productEntity.ProductId}");
+            if (!response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                Assert.Fail(content);
+            }
+
         }
     }
 }

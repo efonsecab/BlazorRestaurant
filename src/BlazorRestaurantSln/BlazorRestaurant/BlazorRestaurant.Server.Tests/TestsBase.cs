@@ -1,5 +1,7 @@
-﻿using BlazorRestaurant.DataAccess.Data;
+﻿using AutoMapper;
+using BlazorRestaurant.DataAccess.Data;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +19,8 @@ namespace BlazorRestaurant.Server.Tests
     public abstract class TestsBase
     {
         private TestServer Server { get; }
+        protected IMapper Mapper { get; }
+        internal static IHttpContextAccessor HttpContextAccesor { get; set; }
         protected string TestImageFilePath { get; }
         internal static string AzureBlobStorageConnectionString { get; set; }
         internal static string TestImagesContainerName { get; set; }
@@ -51,7 +55,8 @@ namespace BlazorRestaurant.Server.Tests
                 })
                 .UseConfiguration(configuration)
                 .UseStartup<Startup>());
-
+            this.Mapper = Server.Services.GetRequiredService<IMapper>();
+            HttpContextAccesor = Server.Services.GetRequiredService<IHttpContextAccessor>();
             string appDirectory = AppContext.BaseDirectory;
             string testImageFilePath = Path.Combine(appDirectory, @"ResourceFiles\Images\thumbnail_IMG_2501.jpg");
             this.TestImageFilePath = testImageFilePath;
@@ -65,7 +70,8 @@ namespace BlazorRestaurant.Server.Tests
             DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
             new();
             BlazorRestaurantDbContext blazorRestaurantDbContext =
-            new(dbContextOptionsBuilder.UseSqlServer(connectionString).Options);
+            new(dbContextOptionsBuilder.UseSqlServer(connectionString).Options, 
+            new CustomProviders.CurrentUserProvider(HttpContextAccesor));
             return blazorRestaurantDbContext;
         }
 

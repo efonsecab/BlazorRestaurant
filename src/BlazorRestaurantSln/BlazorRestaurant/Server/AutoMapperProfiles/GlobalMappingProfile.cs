@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.AzureMaps;
+using BlazorRestaurant.Shared.Countries;
 using BlazorRestaurant.Shared.Errors;
 using BlazorRestaurant.Shared.Products;
 using BlazorRestaurant.Shared.Promos;
@@ -70,6 +71,8 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
                 });
 
             this.CreateMap<ProductType, ProductTypeModel>().ReverseMap();
+
+            this.CreateMap<CountryModel, Country>();
         }
     }
 }
