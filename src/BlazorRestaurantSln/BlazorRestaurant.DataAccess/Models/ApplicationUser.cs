@@ -12,6 +12,11 @@ namespace BlazorRestaurant.DataAccess.Models
     [Index(nameof(AzureAdB2cobjectId), Name = "UI_ApplicationUser_AzureAdB2CObjectId", IsUnique = true)]
     public partial class ApplicationUser
     {
+        public ApplicationUser()
+        {
+            Order = new HashSet<Order>();
+        }
+
         [Key]
         public long ApplicationUserId { get; set; }
         [Required]
@@ -26,5 +31,7 @@ namespace BlazorRestaurant.DataAccess.Models
 
         [InverseProperty("ApplicationUser")]
         public virtual ApplicationUserRole ApplicationUserRole { get; set; }
+        [InverseProperty("ApplicationUser")]
+        public virtual ICollection<Order> Order { get; set; }
     }
 }

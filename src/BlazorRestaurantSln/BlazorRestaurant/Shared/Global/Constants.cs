@@ -34,6 +34,7 @@ namespace BlazorRestaurant.Shared.Global
             public const string UserIndex = "/User/Index";
             public const string AddOrder = "/User/Orders/Manage";
             public const string EditOrder = "/User/Orders/Manage/{OrderId:long}";
+            public const string ListOrders = "/User/Orders/List";
         }
     }
 }

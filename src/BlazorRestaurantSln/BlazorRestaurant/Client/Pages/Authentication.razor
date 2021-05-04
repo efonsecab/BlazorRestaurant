@@ -1,7 +1,7 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<RemoteAuthenticatorView Action="@Action" OnLogInSucceeded="@OnLogInSucceeded" OnLogOutSucceeded="OnLogOutSucceeded">
+<RemoteAuthenticatorView Action="@Action" OnLogInSucceeded="OnLogInSucceeded" OnLogOutSucceeded="OnLogOutSucceeded">
     <CompletingLoggingIn>
         <LoadingComponent IsLoading="true"></LoadingComponent>
         <h1>Completing Logging In </h1>

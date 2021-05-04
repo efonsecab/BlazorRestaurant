@@ -19,6 +19,7 @@ namespace BlazorRestaurant.DataAccess.Models
 
         [Key]
         public long OrderId { get; set; }
+        public long ApplicationUserId { get; set; }
         [Required]
         [StringLength(1000)]
         public string DestinationFreeFormAddress { get; set; }
@@ -38,6 +39,9 @@ namespace BlazorRestaurant.DataAccess.Models
         [StringLength(100)]
         public string OriginatorIpaddress { get; set; }
 
+        [ForeignKey(nameof(ApplicationUserId))]
+        [InverseProperty("Order")]
+        public virtual ApplicationUser ApplicationUser { get; set; }
         [InverseProperty("Order")]
         public virtual ICollection<OrderDetail> OrderDetail { get; set; }
     }

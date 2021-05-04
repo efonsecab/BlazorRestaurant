@@ -13,3 +13,52 @@
 
     </AzureMapsComponent>
 }
+
+<EditForm Model="OrderModel" OnValidSubmit="OnValidSubmitAsync">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <div class="mb-3">
+        <label class="form-label">@nameof(OrderModel.DestinationFreeFormAddress)</label>
+        <InputTextArea class="form-control" @bind-Value="OrderModel.DestinationFreeFormAddress" rows="10" cols="200"></InputTextArea>
+    </div>
+    <div class="mb-3">
+        <label>@nameof(OrderModel.DestinationLatitude)</label>
+        <InputNumber class="form-control" @bind-Value="OrderModel.DestinationLatitude" disabled></InputNumber>
+    </div>
+    <div class="mb-3">
+        <label>@nameof(OrderModel.DestinationLongitude)</label>
+        <InputNumber class="form-control" @bind-Value="OrderModel.DestinationLongitude" disabled></InputNumber>
+    </div>
+    <div class="mb-3">
+        <button type="button" class="btn btn-secondary" @onclick="AddProductLine">Add Product Line</button>
+    </div>
+    @foreach (var singleProductLine in this.OrderModel.OrderDetail)
+    {
+        <div class="card">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">@nameof(singleProductLine.ProductId)</label>
+                    <InputSelect class="form-select" @bind-Value="singleProductLine.Product">
+                        @foreach (var singleProduct in this.AllProducts)
+                            {
+                            <option value="@singleProduct">@singleProduct.Name</option>
+                            }
+                    </InputSelect>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">@nameof(singleProductLine.ProductQty)</label>
+                    <InputNumber class="form-control" @bind-Value="singleProductLine.ProductQty"></InputNumber>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">@nameof(singleProductLine.LineTotal)</label>
+                    <label class="form-label">@singleProductLine.LineTotal</label>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="mb-3">
+        <label class="form-label">@nameof(OrderModel.Total)</label>
+        <label class="form-label">@OrderModel.Total</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>

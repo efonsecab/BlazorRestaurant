@@ -21,5 +21,6 @@ namespace BlazorRestaurant.Shared.User
         public DateTimeOffset LastLogIn { get; set; }
         [Required]
         public Guid AzureAdB2cobjectId { get; set; }
+        public string Role { get; set; }
     }
 }

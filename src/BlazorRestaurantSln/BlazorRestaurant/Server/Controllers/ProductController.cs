@@ -98,7 +98,9 @@ namespace BlazorRestaurant.Server.Controllers
         public async Task<ProductModel[]> ListProducts()
         {
             return await this.BlazorRestaurantDbContext
-                .Product.Select(p => this.Mapper.Map<Product, ProductModel>(p)).ToArrayAsync();
+                .Product
+                .OrderBy(p => p.Name)
+                .Select(p => this.Mapper.Map<Product, ProductModel>(p)).ToArrayAsync();
         }
 
         /// <summary>

@@ -4,6 +4,7 @@ using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.User;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,15 +24,9 @@ namespace BlazorRestaurant.Client.Pages
         private NavigationManager NavigationManager { get; set; }
         private bool IsProcessingOnLogInSucceeded { get; set; } = false;
 
-        public async void OnLogInSucceeded()
+        public async Task OnLogInSucceeded(RemoteAuthenticationState remoteState)
         {
             ///Workaround to avoid the framwework bug of invoking this up to 3 times
-            if (IsProcessingOnLogInSucceeded)
-                return;
-            else
-            {
-                IsProcessingOnLogInSucceeded = true;
-            }
             var authState = await AuthenticationStateTask;
             UserModel userModel = new UserModel()
             {
@@ -48,14 +43,14 @@ namespace BlazorRestaurant.Client.Pages
             }
             else
             {
-                var role = authState.User.Claims.SingleOrDefault(p=>p.Type == "Role").Value;
+                var role = authState.User.Claims.SingleOrDefault(p => p.Type == "Role").Value;
                 switch (role)
                 {
-                    case Constants.Roles.Admin: 
-                        NavigationManager.NavigateTo(Constants.AdminPagesRoutes.AdminIndex);
+                    case Constants.Roles.Admin:
+                        remoteState.ReturnUrl = Constants.AdminPagesRoutes.AdminIndex;
                         break;
                     case Constants.Roles.User:
-                        NavigationManager.NavigateTo(Constants.UserPagesRoutes.UserIndex);
+                        remoteState.ReturnUrl = Constants.UserPagesRoutes.UserIndex;
                         break;
                 }
             }
