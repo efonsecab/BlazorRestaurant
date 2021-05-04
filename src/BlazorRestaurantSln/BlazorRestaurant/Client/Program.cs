@@ -2,6 +2,8 @@ using BlazorRestaurant.Client.Configuration;
 using BlazorRestaurant.Client.CustomClaims;
 using BlazorRestaurant.Client.Services;
 using BlazorRestaurant.Components.Azure.AzureMaps;
+using BlazorRestaurant.Shared.Global;
+using BlazorRestaurant.Shared.User;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -43,8 +45,7 @@ namespace BlazorRestaurant.Client
                 options.ProviderOptions.LoginMode = "redirect";
                 options.UserOptions.RoleClaim = "Role";
             }).AddAccountClaimsPrincipalFactory<
-                RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory
-                >();
+                RemoteAuthenticationState, CustomRemoteUserAccount, CustomAccountClaimsPrincipalFactory>();
 
             Configuration.SiteConfiguration siteConfiguration = builder.Configuration.GetSection("SiteConfiguration")
                 .Get<SiteConfiguration>();

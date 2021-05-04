@@ -51,6 +51,15 @@ namespace BlazorRestaurant.DataAccess.Data
                     .HasConstraintName("FK_ApplicationUserRole_ApplicationUser");
             });
 
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.HasOne(d => d.ApplicationUser)
+                    .WithMany(p => p.Order)
+                    .HasForeignKey(d => d.ApplicationUserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_ApplicationUser");
+            });
+
             modelBuilder.Entity<OrderDetail>(entity =>
             {
                 entity.HasOne(d => d.Order)

@@ -1,5 +1,6 @@
 ﻿using BlazorRestaurant.Client.Extensions;
 using BlazorRestaurant.Client.Services;
+using BlazorRestaurant.Shared.Global;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using System;
@@ -11,19 +12,19 @@ using System.Threading.Tasks;
 
 namespace BlazorRestaurant.Client.CustomClaims
 {
-    public class CustomAccountClaimsPrincipalFactory: AccountClaimsPrincipalFactory<CustomRemoteUserAccount>
+    public class CustomAccountClaimsPrincipalFactory : AccountClaimsPrincipalFactory<CustomRemoteUserAccount>
     {
         private IAccessTokenProviderAccessor Accessor { get; }
         private HttpClientService HttpClientService { get; }
 
         public CustomAccountClaimsPrincipalFactory(IAccessTokenProviderAccessor accessor,
-            HttpClientService httpClientService) :base(accessor)
+            HttpClientService httpClientService) : base(accessor)
         {
             this.Accessor = accessor;
             this.HttpClientService = httpClientService;
         }
 
-        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account, 
+        public async override ValueTask<ClaimsPrincipal> CreateUserAsync(CustomRemoteUserAccount account,
             RemoteAuthenticationUserOptions options)
         {
             var userClaimsPrincipal = await base.CreateUserAsync(account, options);

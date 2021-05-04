@@ -45,6 +45,8 @@ namespace BlazorRestaurant.Server.Controllers
         public async Task<IActionResult> UserLoggedIn(UserModel model)
         {
             var userEntity = await this.BlazorRestaurantDbContext.ApplicationUser
+                .Include(p=>p.ApplicationUserRole)
+                .ThenInclude(p=>p.ApplicationRole)
                 .Where(p => p.AzureAdB2cobjectId == model.AzureAdB2cobjectId).SingleOrDefaultAsync();
             if (userEntity == null)
             {

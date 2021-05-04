@@ -11,12 +11,16 @@
 
   <ItemGroup>
     <Compile Remove="CustomComponents\Azure\**" />
+    <Compile Remove="Pages\Admin\Orders\**" />
     <Compile Remove="wwwroot\components\**" />
     <Content Remove="CustomComponents\Azure\**" />
+    <Content Remove="Pages\Admin\Orders\**" />
     <Content Remove="wwwroot\components\**" />
     <EmbeddedResource Remove="CustomComponents\Azure\**" />
+    <EmbeddedResource Remove="Pages\Admin\Orders\**" />
     <EmbeddedResource Remove="wwwroot\components\**" />
     <None Remove="CustomComponents\Azure\**" />
+    <None Remove="Pages\Admin\Orders\**" />
     <None Remove="wwwroot\components\**" />
   </ItemGroup>
 
@@ -31,10 +35,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorRestaurant.Components\BlazorRestaurant.Components.csproj" />
     <ProjectReference Include="..\Shared\BlazorRestaurant.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Admin\Orders\" />
   </ItemGroup>
 
 </Project>

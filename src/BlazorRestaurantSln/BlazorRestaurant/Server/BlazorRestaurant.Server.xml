@@ -150,6 +150,26 @@
             <param name="imageName"></param>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.OrderController">
+            <summary>
+            In charge of orders management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.OrderController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper,Microsoft.AspNetCore.Http.IHttpContextAccessor)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.OrderController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext"></param>
+            <param name="mapper"></param>
+            <param name="httpContextAccessor"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.OrderController.AddOrder(BlazorRestaurant.Shared.Orders.OrderModel)">
+            <summary>
+            Adds a new order
+            </summary>
+            <param name="orderModel"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ProductController">
             <summary>
             In charge of products management

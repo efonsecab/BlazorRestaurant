@@ -29,19 +29,19 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
         private bool IsEdit => ProductId.HasValue;
         private string PageHeader => IsEdit ? "Edit Product" : "Add Product";
         private ProductModel ProductModel { get; set; } = new ProductModel();
-        private HttpClient AuthorizedHttpClientService { get; set; }
+        private HttpClient AuthorizedHttpClient { get; set; }
         private ProductTypeModel[] AllProductTypes { get; set; }
         private bool IsLoading { get; set; } = false;
         private bool ShowSelectImageComponent { get; set; } = false;
 
         protected async override Task OnInitializedAsync()
         {
-            this.AuthorizedHttpClientService = this.HttpClientService.CreateAuthorizedClient();
-            this.AllProductTypes = await this.AuthorizedHttpClientService
+            this.AuthorizedHttpClient = this.HttpClientService.CreateAuthorizedClient();
+            this.AllProductTypes = await this.AuthorizedHttpClient
                 .GetFromJsonAsync<ProductTypeModel[]>("api/Product/ListProductTypes");
             if (this.IsEdit)
             {
-                this.ProductModel = await this.AuthorizedHttpClientService
+                this.ProductModel = await this.AuthorizedHttpClient
                     .GetFromJsonAsync<ProductModel>($"api/Product/GetProductById?productId={this.ProductId}");
             }
             else
@@ -56,7 +56,7 @@ namespace BlazorRestaurant.Client.Pages.Admin.Products
             {
                 IsLoading = true;
                 string requestUrl = IsEdit ? "api/Product/EditProduct" : "api/Product/AddProduct";
-                var response = await this.AuthorizedHttpClientService
+                var response = await this.AuthorizedHttpClient
                     .PostAsJsonAsync<ProductModel>(requestUrl, this.ProductModel);
                 if (!response.IsSuccessStatusCode)
                 {
