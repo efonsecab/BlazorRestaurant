@@ -1,5 +1,6 @@
 ﻿using BlazorRestaurant.Server.Configuration;
 using BlazorRestaurant.Shared.Configuration;
+using BlazorRestaurant.Shared.Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.User)]
         public string GetAzureMapsKey()
         {
             return this.AzureConfiguration.AzureMapsConfiguration.Key;
@@ -47,6 +49,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public string GetErrorLogPowerBIUrl()
         {
             return this.SystemConfiguration.ErrorLogPowerBIUrl;

@@ -66,10 +66,21 @@ namespace BlazorRestaurant.Server
                 JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.TokenValidationParameters.NameClaimType = "name";
-                    options.Events.OnTokenValidated = (context) =>
+                    options.TokenValidationParameters.RoleClaimType = "Role";
+                    options.Events.OnTokenValidated = async (context) =>
                     {
-                        System.Threading.Thread.CurrentPrincipal = context.Principal;
-                        return Task.CompletedTask;
+                        BlazorRestaurantDbContext blazorRestaurantDbContext = CreateBlazorRestaurantDbContext(services);
+                        ClaimsIdentity claimsIdentity = context.Principal.Identity as ClaimsIdentity;
+                        var userObjectIdClaim = claimsIdentity.Claims.Single(p => p.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier");
+                        var user = await blazorRestaurantDbContext.ApplicationUser
+                        .Include(p => p.ApplicationUserRole)
+                        .ThenInclude(p => p.ApplicationRole)
+                        .Where(p => p.AzureAdB2cobjectId.ToString() == userObjectIdClaim.Value)
+                        .SingleOrDefaultAsync();
+                        if (user != null && user.ApplicationUserRole != null)
+                        {
+                            claimsIdentity.AddClaim(new Claim("Role", user.ApplicationUserRole.ApplicationRole.Name));
+                        }
                     };
                     options.SaveToken = true;
                 });
@@ -109,6 +120,18 @@ namespace BlazorRestaurant.Server
                 if (System.IO.File.Exists(filePath))
                     c.IncludeXmlComments(filePath);
             });
+        }
+
+        private BlazorRestaurantDbContext CreateBlazorRestaurantDbContext(IServiceCollection services)
+        {
+            var sp = services.BuildServiceProvider();
+            DbContextOptionsBuilder<BlazorRestaurantDbContext> dbContextOptionsBuilder =
+                new();
+            BlazorRestaurantDbContext blazorRestaurantDbContext =
+            new(dbContextOptionsBuilder.UseSqlServer(Configuration.GetConnectionString("Default"),
+            sqlServerOptionsAction: (serverOptions) => serverOptions.EnableRetryOnFailure(3)).Options,
+            sp.GetService<ICurrentUserProvider>());
+            return blazorRestaurantDbContext;
         }
 
         private BlazorRestaurantDbContext CreateBlazorRestaurantDbContext(IServiceProvider serviceProvider)
