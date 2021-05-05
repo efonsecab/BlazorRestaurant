@@ -33,12 +33,11 @@ namespace BlazorRestaurant.Components.Azure.AzureMaps
         [Parameter]
         public POISelectedDelegate SelectedPOIAction { get; set; }
         [Inject]
-        public AzureMapsControlModule module { get; set; }
+        public AzureMapsControlModule Module { get; set; }
 
         private bool IsMapInitialized { get; set; } = false;
         private static Action MapInitializedAction { get; set; }
         private SearchPOIModel SearchPOIModel { get; set; } = new SearchPOIModel();
-        private bool IsLoading { get; set; } = false;
         private AzureMapsDataPoint[] PointsOfInterest { get; set; }
 
         protected async override Task OnInitializedAsync()
@@ -63,13 +62,13 @@ namespace BlazorRestaurant.Components.Azure.AzureMaps
 
         private async Task OnPOISelected(AzureMapsDataPoint selectedPOI)
         {
-            await module.SetCamera(selectedPOI.Latitude, selectedPOI.Longitude);
+            await Module.SetCamera(selectedPOI.Latitude, selectedPOI.Longitude);
             SelectedPOIAction(selectedPOI);
         }
 
         public async Task InitializeMap()
         {
-            AzureMapsControlConfiguration options = new AzureMapsControlConfiguration()
+            AzureMapsControlConfiguration options = new()
             {
                 Center = RouteStart,
                 Language = "en-US",
@@ -80,7 +79,7 @@ namespace BlazorRestaurant.Components.Azure.AzureMaps
                     SubscriptionKey = this.SubscriptionKey
                 }
             };
-            await module.InitializeMap(mapControlId: MapsControlId, mapOptions: options); ;
+            await Module.InitializeMap(mapControlId: MapsControlId, mapOptions: options); ;
         }
     }
 

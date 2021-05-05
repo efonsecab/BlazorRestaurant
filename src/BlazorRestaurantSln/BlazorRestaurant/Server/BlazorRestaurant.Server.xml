@@ -170,6 +170,12 @@
             <param name="orderModel"></param>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.OrderController.ListOrders">
+            <summary>
+            Retrieves all of the orders in the system
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ProductController">
             <summary>
             In charge of products management
@@ -279,23 +285,6 @@
             Gets the name of the role assigned to the specified user
             </summary>
             <param name="userAdB2CObjectId"></param>
-            <returns></returns>
-        </member>
-        <member name="T:BlazorRestaurant.Server.Controllers.WeatherForecastController">
-            <summary>
-            Default sample
-            </summary>
-        </member>
-        <member name="M:BlazorRestaurant.Server.Controllers.WeatherForecastController.#ctor(Microsoft.Extensions.Logging.ILogger{BlazorRestaurant.Server.Controllers.WeatherForecastController})">
-            <summary>
-            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.WeatherForecastController"/>
-            </summary>
-            <param name="logger"></param>
-        </member>
-        <member name="M:BlazorRestaurant.Server.Controllers.WeatherForecastController.Get">
-            <summary>
-            Executes the Get Request
-            </summary>
             <returns></returns>
         </member>
         <member name="T:BlazorRestaurant.Server.CustomLoggers.CustomHttpClientHandlerLogger">

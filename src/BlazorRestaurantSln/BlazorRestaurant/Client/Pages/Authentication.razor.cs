@@ -22,13 +22,12 @@ namespace BlazorRestaurant.Client.Pages
         private HttpClientService HttpClientService { get; set; }
         [Inject]
         private NavigationManager NavigationManager { get; set; }
-        private bool IsProcessingOnLogInSucceeded { get; set; } = false;
 
         public async Task OnLogInSucceeded(RemoteAuthenticationState remoteState)
         {
             ///Workaround to avoid the framwework bug of invoking this up to 3 times
             var authState = await AuthenticationStateTask;
-            UserModel userModel = new UserModel()
+            UserModel userModel = new()
             {
                 EmailAddress = authState.User.Claims.GetUserEmails()[0],
                 FullName = authState.User.Claims.GetDisplayName(),
