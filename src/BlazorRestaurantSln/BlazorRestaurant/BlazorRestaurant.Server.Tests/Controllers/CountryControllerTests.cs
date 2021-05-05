@@ -19,8 +19,8 @@ namespace BlazorRestaurant.Server.Controllers.Tests
     {
         private static readonly CountryModel TestCountryModel = new()
         {
-            Name = "COSTA RICA",
-            Isocode = "CRC"
+            Name = "TEST COUNTRY",
+            Isocode = "TST"
         };
 
         [ClassCleanup]
@@ -40,9 +40,9 @@ namespace BlazorRestaurant.Server.Controllers.Tests
             using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
             await blazorRestaurantDbContext.Country.AddAsync(countryEntity);
             await blazorRestaurantDbContext.SaveChangesAsync();
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var allCountries = await authorizedHttpClient
-                .GetFromJsonAsync<Country[]>($"api/Country/ListCountries={countryEntity.Name}");
+                .GetFromJsonAsync<Country[]>($"api/Country/ListCountries?searchTerm={countryEntity.Name}");
             Assert.IsNotNull(allCountries);
             Assert.IsTrue(allCountries.Length > 0);
         }
