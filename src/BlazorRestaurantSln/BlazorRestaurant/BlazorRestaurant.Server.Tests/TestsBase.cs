@@ -27,7 +27,7 @@ namespace BlazorRestaurant.Server.Tests
         internal static string TestImageFilePath { get; set; }
         internal static DataStorageConfiguration DataStorageConfiguration { get; set; }
         internal static AzureBlobStorageConfiguration AzureBlobStorageConfiguration { get; set; }
-        private TestAzureAdB2CAuthConfiguration TestAzureAdB2CAuthConfiguration { get; }
+        internal static TestAzureAdB2CAuthConfiguration TestAzureAdB2CAuthConfiguration { get; set; }
         private static IConfiguration Configuration { get; set; }
         private HttpClient AuthorizedHttpClient { get; set; }
 
@@ -67,7 +67,7 @@ namespace BlazorRestaurant.Server.Tests
             TestImageFilePath = testImageFilePath;
             DataStorageConfiguration = Server.Services.GetRequiredService<DataStorageConfiguration>();
             AzureBlobStorageConfiguration = Server.Services.GetRequiredService<AzureBlobStorageConfiguration>();
-            this.TestAzureAdB2CAuthConfiguration = Configuration.GetSection("TestAzureAdB2CAuthConfiguration").Get<TestAzureAdB2CAuthConfiguration>();
+            TestAzureAdB2CAuthConfiguration = Configuration.GetSection("TestAzureAdB2CAuthConfiguration").Get<TestAzureAdB2CAuthConfiguration>();
         }
 
         public static BlazorRestaurantDbContext CreateDbContext()
@@ -85,25 +85,23 @@ namespace BlazorRestaurant.Server.Tests
         {
             if (this.AuthorizedHttpClient != null)
                 return this.AuthorizedHttpClient;
-            HttpClient httpClient = new HttpClient();
-            List<KeyValuePair<string?, string?>> formData = new List<KeyValuePair<string?, string?>>();
-            formData.Add(new KeyValuePair<string?, string?>("username", this.TestAzureAdB2CAuthConfiguration.Username));
-            formData.Add(new KeyValuePair<string?, string?>("password", this.TestAzureAdB2CAuthConfiguration.Password));
+            HttpClient httpClient = new();
+            List<KeyValuePair<string?, string?>> formData = new();
+            formData.Add(new KeyValuePair<string?, string?>("username", TestAzureAdB2CAuthConfiguration.Username));
+            formData.Add(new KeyValuePair<string?, string?>("password", TestAzureAdB2CAuthConfiguration.Password));
             formData.Add(new KeyValuePair<string?, string?>("grant_type", "password"));
-            string applicationId = this.TestAzureAdB2CAuthConfiguration.ApplicationId;
+            string applicationId = TestAzureAdB2CAuthConfiguration.ApplicationId;
             formData.Add(new KeyValuePair<string?, string?>("scope", $"openid {applicationId} offline_access"));
             formData.Add(new KeyValuePair<string?, string?>("client_id", applicationId));
             formData.Add(new KeyValuePair<string?, string?>("response_type", "token id_token"));
-            //password=Passxword1&grant_type=password&scope=openid+bef22d56-552f-4a5b-b90a-1988a7d634ce+offline_access&client_id=bef22d56-552f-4a5b-b90a-1988a7d634ce&response_type=token+id_token
-
-            System.Net.Http.FormUrlEncodedContent form = new FormUrlEncodedContent(formData);
-            var response = await httpClient.PostAsync(this.TestAzureAdB2CAuthConfiguration.TokenUrl, form);
+            System.Net.Http.FormUrlEncodedContent form = new(formData);
+            var response = await httpClient.PostAsync(TestAzureAdB2CAuthConfiguration.TokenUrl, form);
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<AuthResponse>();
                 var client = this.Server.CreateClient();
                 client.DefaultRequestHeaders.Authorization =
-                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", result.access_token);
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", result.Access_token);
                 this.AuthorizedHttpClient = client;
                 return client;
             }
@@ -119,11 +117,11 @@ namespace BlazorRestaurant.Server.Tests
 
     public class AuthResponse
     {
-        public string access_token { get; set; }
-        public string token_type { get; set; }
-        public string expires_in { get; set; }
-        public string refresh_token { get; set; }
-        public string id_token { get; set; }
+        public string Access_token { get; set; }
+        public string Token_type { get; set; }
+        public string Expires_in { get; set; }
+        public string Refresh_token { get; set; }
+        public string Id_token { get; set; }
     }
 
     public class TestAzureAdB2CAuthConfiguration

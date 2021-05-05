@@ -37,7 +37,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task AddProductTest()
         {
-            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var response = await authorizedHttpClient.PostAsJsonAsync("api/Product/AddProduct", TestProductModel);
             if (!response.IsSuccessStatusCode)
             {
@@ -49,7 +49,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task ListProductTypesTestAsync()
         {
-            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var allProductTypes = await authorizedHttpClient
                 .GetFromJsonAsync<ProductTypeModel[]>("api/Product/ListProductTypes");
             Assert.IsNotNull(allProductTypes);
@@ -59,7 +59,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task ListProductsTestAsync()
         {
-            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var allProducts = await authorizedHttpClient
                 .GetFromJsonAsync<ProductModel[]>("api/Product/ListProducts");
             Assert.IsNotNull(allProducts);

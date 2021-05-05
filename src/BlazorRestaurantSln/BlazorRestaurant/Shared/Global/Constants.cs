@@ -27,6 +27,7 @@ namespace BlazorRestaurant.Shared.Global
             public const string AddProduct = "/Admin/Products/Manage";
             public const string EditProduct = "/Admin/Products/Manage/{ProductId:int}";
             public const string ListProducts = "/Admin/Products/List";
+            public const string ListOrders = "/Admin/Orders/List";
         }
 
         public class UserPagesRoutes

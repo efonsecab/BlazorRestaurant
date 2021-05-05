@@ -2,6 +2,7 @@
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Server.CustomProviders;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Orders;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -61,6 +62,24 @@ namespace BlazorRestaurant.Server.Controllers
             }
             await this.BlazorRestaurantDbContext.SaveChangesAsync();
             return Ok();
+        }
+
+        /// <summary>
+        /// Retrieves all of the orders in the system
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
+        public async Task<OrderModel[]> ListOrders()
+        {
+            var allOrders = await this.BlazorRestaurantDbContext
+                .Order
+                .Include(p => p.ApplicationUser)
+                .Include(p=>p.OrderDetail)
+                .ThenInclude(p=>p.Product)
+                .OrderByDescending(p => p.RowCreationDateTime)
+                .Select(p => this.Mapper.Map<Order, OrderModel>(p)).ToArrayAsync();
+            return allOrders;
         }
     }
 }

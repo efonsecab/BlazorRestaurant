@@ -1,4 +1,4 @@
-﻿using BlazorRestaurant.DataAccess.Interfaces;
+﻿using BlazorRestaurant.Common.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlazorRestaurant.DataAccess.Interfaces
+namespace BlazorRestaurant.Common.Interfaces
 {
     public interface IOriginatorInfo
     {

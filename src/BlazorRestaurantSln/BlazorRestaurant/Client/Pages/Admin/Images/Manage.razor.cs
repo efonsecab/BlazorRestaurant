@@ -25,8 +25,6 @@ namespace BlazorRestaurant.Client.Pages.Admin.Images
         [Inject]
         private ToastifyService ToastifyService { get; set; }
         [Inject]
-        private IJSRuntime JSRuntime { get; set; }
-        [Inject]
         private NavigationManager NavigationManager { get; set; }
         private HttpClient AuthorizedHttpClient { get; set; }
         private ImageUploadModel ImageUploadModel { get; set; } = new ImageUploadModel();

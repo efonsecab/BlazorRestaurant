@@ -77,6 +77,12 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
 
             this.CreateMap<OrderDetailModel, OrderDetail>().ReverseMap();
             this.CreateMap<OrderModel, Order>().ReverseMap();
+
+            this.CreateMap<Order, OrderModel>().AfterMap(afterFunction: (source, desc) => 
+            {
+                if (source.ApplicationUser != null)
+                    desc.Owner = source.ApplicationUser.FullName;
+            });
         }
     }
 }
