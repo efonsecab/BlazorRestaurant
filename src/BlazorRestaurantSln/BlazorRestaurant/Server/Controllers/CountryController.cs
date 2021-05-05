@@ -21,12 +21,6 @@ namespace BlazorRestaurant.Server.Controllers
     [Authorize]
     public class CountryController : ControllerBase
     {
-        private static CountryModel TestCountryModel =
-            new CountryModel()
-            {
-                Name = "TESt COUNTRY",
-                Isocode = "N/A"
-            };
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
         private IMapper Mapper { get; }
 

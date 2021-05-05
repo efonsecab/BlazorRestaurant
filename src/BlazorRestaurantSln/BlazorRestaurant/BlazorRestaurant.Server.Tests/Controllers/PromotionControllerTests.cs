@@ -35,7 +35,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task AddPromotionTest()
         {
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
             var response = await authorizedHttpClient.PostAsJsonAsync("api/Promotion/AddPromotion", TestPromotionModel);
             if (!response.IsSuccessStatusCode)
             {
@@ -55,7 +55,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
                 ImageUrl = TestPromotionModel.ImageUrl
             });
             await blazorRestaurantDbContext.SaveChangesAsync();
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
             var response = await authorizedHttpClient.GetFromJsonAsync<PromotionModel[]>("api/Promotion/ListPromotions");
             Assert.IsTrue(response.Length > 0);
         }
@@ -67,7 +67,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
             var testPromotionEntity = await blazorRestaurantDbContext.Promotion
                 .Where(p => p.Name == TestPromotionModel.Name).FirstOrDefaultAsync();
             Assert.IsNotNull(testPromotionEntity);
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var response = await authorizedHttpClient.DeleteAsync($"api/Promotion/" +
                 $"DeletePromotion?promotionId={testPromotionEntity.PromotionId}");
             if (!response.IsSuccessStatusCode)

@@ -21,24 +21,25 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         public static async Task CleanTests()
         {
             BlobContainerClient blobContainerClient =
-                new(TestsBase.AzureBlobStorageConnectionString,
-                TestsBase.TestImagesContainerName);
+                new(TestsBase.AzureBlobStorageConfiguration.ConnectionString,
+                TestsBase.DataStorageConfiguration.ImagesContainerName);
             var blobs = blobContainerClient.GetBlobsAsync();
             await foreach (var singleBlob in blobs)
             {
-                await blobContainerClient.DeleteBlobAsync(singleBlob.Name);
+                if (singleBlob.Name.EndsWith($"{Path.GetFileName(TestImageFilePath)}"))
+                    await blobContainerClient.DeleteBlobAsync(singleBlob.Name);
             }
         }
 
         [TestMethod]
         public async Task UploadImageTest()
         {
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
             ImageUploadModel model = new()
             {
-                FileExtension = Path.GetExtension(this.TestImageFilePath),
-                Name = Path.GetFileNameWithoutExtension(this.TestImageFilePath),
-                ImageFileBytes = File.ReadAllBytes(this.TestImageFilePath)
+                FileExtension = Path.GetExtension(TestImageFilePath),
+                Name = Path.GetFileNameWithoutExtension(TestImageFilePath),
+                ImageFileBytes = File.ReadAllBytes(TestImageFilePath)
             };
 
             HttpResponseMessage response = await authorizedHttpClient.PostAsJsonAsync("api/Image/UploadImage", model);
@@ -52,7 +53,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod]
         public async Task ListImagesTest()
         {
-            var authorizedHttpClient = base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
             var images = await authorizedHttpClient
                 .GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             Assert.IsTrue(images.Length > 0);
