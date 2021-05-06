@@ -81,5 +81,23 @@ namespace BlazorRestaurant.Server.Controllers
                 .Select(p => this.Mapper.Map<Order, OrderModel>(p)).ToArrayAsync();
             return allOrders;
         }
+
+        /// <summary>
+        /// Returns all the orders for the specified user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("[action]")]
+        public async Task<OrderModel[]> ListOwnedOrders()
+        {
+            var userObjectId = this.User.Claims.First(p => p.Type == Constants.Claims.ObjectIdentifier).Value;
+            return await this.BlazorRestaurantDbContext
+                .Order
+                .Include(p => p.OrderDetail)
+                .ThenInclude(p => p.Product)
+                .Include(p => p.ApplicationUser)
+                .OrderByDescending(p => p.RowCreationDateTime)
+                .Where(p => p.ApplicationUser.AzureAdB2cobjectId.ToString() == userObjectId)
+                .Select(p => this.Mapper.Map<Order, OrderModel>(p)).ToArrayAsync();
+        }
     }
 }
