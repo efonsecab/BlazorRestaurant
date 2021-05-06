@@ -73,7 +73,7 @@ namespace BlazorRestaurant.Server
                     {
                         BlazorRestaurantDbContext blazorRestaurantDbContext = CreateBlazorRestaurantDbContext(services);
                         ClaimsIdentity claimsIdentity = context.Principal.Identity as ClaimsIdentity;
-                        var userObjectIdClaim = claimsIdentity.Claims.Single(p => p.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier");
+                        var userObjectIdClaim = claimsIdentity.Claims.Single(p => p.Type == Shared.Global.Constants.Claims.ObjectIdentifier);
                         var user = await blazorRestaurantDbContext.ApplicationUser
                         .Include(p => p.ApplicationUserRole)
                         .ThenInclude(p => p.ApplicationRole)

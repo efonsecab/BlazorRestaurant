@@ -176,6 +176,12 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.OrderController.ListOwnedOrders">
+            <summary>
+            Returns all the orders for the specified user
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.ProductController">
             <summary>
             In charge of products management

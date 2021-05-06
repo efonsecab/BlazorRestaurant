@@ -1,2 +1,53 @@
 ﻿@layout UserLayout
-<h3>List</h3>
+<h3>List All My Orders</h3>
+
+<LoadingComponent IsLoading="@IsLoading"></LoadingComponent>
+@if (this.AllOrders != null)
+{
+    <div class="mb-3">
+        <label class="form-label fw-bold">Total Spent:</label>
+        @this.AllOrders.Sum(p=>p.Total)
+    </div>
+    for (int iPage = 0; iPage < this.TotalPages; iPage++)
+    {
+        var pageItems = this.AllOrders.Skip(iPage * 2).Take(2);
+        <div class="card-group">
+            @foreach (var singlePageItem in pageItems)
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Owner: </label>@singlePageItem.Owner
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Date: </label>@singlePageItem.RowCreationDateTime.ToLocalTime().ToString("F")
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Order #: </label>@singlePageItem.OrderId
+                        </div>
+                        @foreach (var singleLine in singlePageItem.OrderDetail)
+                        {
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Product: </label>@singleLine.Product.Name
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Qty: </label>@singleLine.ProductQty
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Unit Price: </label>@singleLine.Product.UnitPrice
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Line Total: </label>@singleLine.LineTotal
+                            </div>
+                        }
+                    </div>
+                    <div class="card-footer">
+                        <label class="form-label fw-bold">Order Total: </label>@singlePageItem.Total
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
