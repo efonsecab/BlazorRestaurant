@@ -25,6 +25,7 @@ namespace BlazorRestaurant.DataAccess.Data
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<ErrorLog> ErrorLog { get; set; }
         public virtual DbSet<ExternalRequestTracking> ExternalRequestTracking { get; set; }
+        public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Order> Order { get; set; }
         public virtual DbSet<OrderDetail> OrderDetail { get; set; }
         public virtual DbSet<Product> Product { get; set; }
