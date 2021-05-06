@@ -150,6 +150,25 @@
             <param name="imageName"></param>
             <returns></returns>
         </member>
+        <member name="T:BlazorRestaurant.Server.Controllers.LocationController">
+            <summary>
+            In charge of Locations management
+            </summary>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.LocationController.#ctor(BlazorRestaurant.DataAccess.Data.BlazorRestaurantDbContext,AutoMapper.IMapper)">
+            <summary>
+            Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.LocationController"/>
+            </summary>
+            <param name="blazorRestaurantDbContext"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:BlazorRestaurant.Server.Controllers.LocationController.AddLocation(BlazorRestaurant.Shared.Profile.LocationModel)">
+            <summary>
+            Adds a new Location
+            </summary>
+            <param name="locationModel"></param>
+            <returns></returns>
+        </member>
         <member name="T:BlazorRestaurant.Server.Controllers.OrderController">
             <summary>
             In charge of orders management
