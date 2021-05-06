@@ -38,10 +38,12 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label class="form-label">@nameof(singleProductLine.ProductId)</label>
-                    <InputSelect class="form-select" @bind-Value="singleProductLine.Product">
+                    <InputSelect class="form-select" ValueExpression="@(()=>singleProductLine.ProductId)" 
+                                           Value="@singleProductLine.ProductId" 
+                 ValueChanged="@((int value) => OnLineSelectedProduct(value, singleProductLine))">
                         @foreach (var singleProduct in this.AllProducts)
                             {
-                            <option value="@singleProduct">@singleProduct.Name</option>
+                            <option value="@singleProduct.ProductId">@singleProduct.Name</option>
                             }
                     </InputSelect>
                 </div>

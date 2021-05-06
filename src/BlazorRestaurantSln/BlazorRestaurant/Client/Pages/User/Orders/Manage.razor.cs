@@ -137,5 +137,12 @@ namespace BlazorRestaurant.Client.Pages.User.Orders
                 Product = this.AllProducts[0]
             });
         }
+
+        private void OnLineSelectedProduct(int productId, OrderDetailModel selectedOrderDetailLine)
+        {
+            selectedOrderDetailLine.ProductId = productId;
+            selectedOrderDetailLine.Product = 
+                this.AllProducts.Where(p => p.ProductId == productId).Single();
+        }
     }
 }
