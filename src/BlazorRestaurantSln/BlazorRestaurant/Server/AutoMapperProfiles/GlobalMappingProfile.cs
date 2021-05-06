@@ -5,6 +5,7 @@ using BlazorRestaurant.Shared.Countries;
 using BlazorRestaurant.Shared.Errors;
 using BlazorRestaurant.Shared.Orders;
 using BlazorRestaurant.Shared.Products;
+using BlazorRestaurant.Shared.Profile;
 using BlazorRestaurant.Shared.Promos;
 using BlazorRestaurant.Shared.User;
 using PTI.Microservices.Library.Models.AzureMapsService.GetSearchPOI;
@@ -83,6 +84,8 @@ namespace BlazorRestaurant.Server.AutoMapperProfiles
                 if (source.ApplicationUser != null)
                     desc.Owner = source.ApplicationUser.FullName;
             });
+
+            this.CreateMap<LocationModel, Location>();
         }
     }
 }
