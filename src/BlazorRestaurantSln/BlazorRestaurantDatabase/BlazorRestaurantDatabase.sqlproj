@@ -67,6 +67,8 @@
     <Folder Include="orders" />
     <Folder Include="profile" />
     <Folder Include="profile\Tables" />
+    <Folder Include="orders\Tables" />
+    <Folder Include="products\Tables" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\ApplicationUser.sql" />
@@ -77,15 +79,15 @@
     <Build Include="Security\promo.sql" />
     <Build Include="dbo\Tables\ExternalRequestTracking.sql" />
     <Build Include="dbo\Tables\SystemConfiguration.sql" />
-    <Build Include="products\Product.sql" />
     <Build Include="Security\products.sql" />
-    <Build Include="products\ProductType.sql" />
     <Build Include="dbo\Tables\Country.sql" />
-    <Build Include="orders\Order.sql" />
     <Build Include="Security\orders.sql" />
-    <Build Include="orders\OrderDetail.sql" />
     <Build Include="profile\Tables\Location.sql" />
     <Build Include="Security\profile.sql" />
+    <Build Include="orders\Tables\Order.sql" />
+    <Build Include="orders\Tables\OrderDetail.sql" />
+    <Build Include="products\Tables\ProductType.sql" />
+    <Build Include="products\Tables\Product.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="BlazorRestaurantDatabase.refactorlog" />
