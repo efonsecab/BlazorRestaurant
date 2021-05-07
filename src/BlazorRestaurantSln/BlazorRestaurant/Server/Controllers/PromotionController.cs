@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Promos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task AddPromotion(PromotionModel model)
         {
             var entity = Mapper.Map<PromotionModel, Promotion>(model);
@@ -67,6 +69,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="promotionId"></param>
         /// <returns></returns>
         [HttpDelete("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> DeletePromotion(long promotionId)
         {
             var promotionEntity = 

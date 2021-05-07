@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Profile;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +19,7 @@ namespace BlazorRestaurant.Server.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LocationController : ControllerBase
     {
         private BlazorRestaurantDbContext BlazorRestaurantDbContext { get; }
@@ -39,6 +42,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="locationModel"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> AddLocation(LocationModel locationModel)
         {
             var locationEntity = await this.BlazorRestaurantDbContext

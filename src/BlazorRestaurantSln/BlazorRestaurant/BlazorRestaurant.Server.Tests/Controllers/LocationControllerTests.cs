@@ -36,7 +36,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task AddLocationTestAsync()
         {
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.Admin);
             var response = await authorizedHttpClient.PostAsJsonAsync<LocationModel>("api/Location/AddLocation", TestLocation);
             if (!response.IsSuccessStatusCode)
             {

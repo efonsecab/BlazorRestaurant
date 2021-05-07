@@ -43,7 +43,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod]
         public async Task UserLoggedInTestAsync()
         {
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.User);
             var response = await authorizedHttpClient.PostAsJsonAsync<UserModel>("api/User/UserLoggedIn", TestUserModel);
             if (!response.IsSuccessStatusCode)
             {

@@ -40,7 +40,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
             using BlazorRestaurantDbContext blazorRestaurantDbContext = TestsBase.CreateDbContext();
             await blazorRestaurantDbContext.Country.AddAsync(countryEntity);
             await blazorRestaurantDbContext.SaveChangesAsync();
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.User);
             var allCountries = await authorizedHttpClient
                 .GetFromJsonAsync<Country[]>($"api/Country/ListCountries?searchTerm={countryEntity.Name}");
             Assert.IsNotNull(allCountries);

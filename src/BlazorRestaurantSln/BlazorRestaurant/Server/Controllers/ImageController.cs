@@ -1,5 +1,6 @@
 ﻿using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.Server.Configuration;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Images;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +48,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> UploadImage(ImageUploadModel model)
         {
             try
@@ -70,6 +72,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<ImageModel[]> ListImages()
         {
             List<ImageModel> imageModels = new();

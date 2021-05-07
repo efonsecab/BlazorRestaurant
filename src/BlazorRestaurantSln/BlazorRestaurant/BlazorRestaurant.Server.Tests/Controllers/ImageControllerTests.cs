@@ -34,7 +34,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod]
         public async Task UploadImageTest()
         {
-            var authorizedHttpClient = await base .CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base .CreateAuthorizedClientAsync(Role.Admin);
             ImageUploadModel model = new()
             {
                 FileExtension = Path.GetExtension(TestImageFilePath),
@@ -53,7 +53,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod]
         public async Task ListImagesTest()
         {
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.Admin);
             var images = await authorizedHttpClient
                 .GetFromJsonAsync<ImageModel[]>("api/Image/ListImages");
             Assert.IsTrue(images.Length > 0);

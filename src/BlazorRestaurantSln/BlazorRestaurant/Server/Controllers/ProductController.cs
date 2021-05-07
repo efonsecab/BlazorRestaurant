@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
+using BlazorRestaurant.Shared.Global;
 using BlazorRestaurant.Shared.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -41,7 +42,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [AllowAnonymous]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> AddProduct(ProductModel productModel)
         {
             var productEntity = await this.BlazorRestaurantDbContext.Product
@@ -63,7 +64,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="productModel"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
-        [AllowAnonymous]
+        [Authorize(Constants.Roles.Admin)]
         public async Task<IActionResult> EditProduct(ProductModel productModel)
         {
             var productEntity = await this.BlazorRestaurantDbContext.Product
@@ -126,6 +127,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="productId"></param>
         /// <returns></returns>
         [HttpDelete("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<IActionResult> DeleteProduct(int productId)
         {
             var productEntity = await this.BlazorRestaurantDbContext.Product.SingleOrDefaultAsync(p => p.ProductId == productId);
