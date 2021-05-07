@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.Server.Configuration;
+using BlazorRestaurant.Shared.Global;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.TestHost;
@@ -29,7 +30,8 @@ namespace BlazorRestaurant.Server.Tests
         internal static AzureBlobStorageConfiguration AzureBlobStorageConfiguration { get; set; }
         internal static TestAzureAdB2CAuthConfiguration TestAzureAdB2CAuthConfiguration { get; set; }
         private static IConfiguration Configuration { get; set; }
-        private HttpClient AuthorizedHttpClient { get; set; }
+        public HttpClient UserRoleAuthorizedHttpClient { get; private set; }
+        public HttpClient AdminRoleAuthorizedHttpClient { get; private set; }
 
         public TestsBase()
         {
@@ -81,14 +83,31 @@ namespace BlazorRestaurant.Server.Tests
             return blazorRestaurantDbContext;
         }
 
-        protected async Task<HttpClient> CreateAuthorizedClientAsync()
+        public enum Role
         {
-            if (this.AuthorizedHttpClient != null)
-                return this.AuthorizedHttpClient;
+            Admin,
+            User
+        }
+        protected async Task<HttpClient> CreateAuthorizedClientAsync(Role role)
+        {
+
+            switch (role)
+            {
+                case Role.Admin:
+                    if (this.AdminRoleAuthorizedHttpClient!= null)
+                        return this.AdminRoleAuthorizedHttpClient;
+                    break;
+                case Role.User:
+                    if (this.UserRoleAuthorizedHttpClient != null)
+                        return this.UserRoleAuthorizedHttpClient;
+                    break;
+            }
             HttpClient httpClient = new();
             List<KeyValuePair<string?, string?>> formData = new();
-            formData.Add(new KeyValuePair<string?, string?>("username", TestAzureAdB2CAuthConfiguration.Username));
-            formData.Add(new KeyValuePair<string?, string?>("password", TestAzureAdB2CAuthConfiguration.Password));
+            formData.Add(new KeyValuePair<string?, string?>("username",
+                role == Role.User ? TestAzureAdB2CAuthConfiguration.UserRoleUsername : TestAzureAdB2CAuthConfiguration.AdminRoleUsername));
+            formData.Add(new KeyValuePair<string?, string?>("password",
+                role == Role.User ? TestAzureAdB2CAuthConfiguration.UserRolePassword : TestAzureAdB2CAuthConfiguration.AdminRolePassword));
             formData.Add(new KeyValuePair<string?, string?>("grant_type", "password"));
             string applicationId = TestAzureAdB2CAuthConfiguration.ApplicationId;
             formData.Add(new KeyValuePair<string?, string?>("scope", $"openid {applicationId} offline_access"));
@@ -102,7 +121,15 @@ namespace BlazorRestaurant.Server.Tests
                 var client = this.Server.CreateClient();
                 client.DefaultRequestHeaders.Authorization =
                     new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", result.Access_token);
-                this.AuthorizedHttpClient = client;
+                switch (role)
+                {
+                    case Role.Admin:
+                        this.AdminRoleAuthorizedHttpClient = client;
+                        break;
+                    case Role.User:
+                        this.UserRoleAuthorizedHttpClient = client;
+                        break;
+                }
                 return client;
             }
             else
@@ -127,8 +154,10 @@ namespace BlazorRestaurant.Server.Tests
     public class TestAzureAdB2CAuthConfiguration
     {
         public string TokenUrl { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public string UserRoleUsername { get; set; }
+        public string UserRolePassword { get; set; }
+        public string AdminRoleUsername { get; set; }
+        public string AdminRolePassword { get; set; }
         public string ApplicationId { get; set; }
         public string AzureAdUserObjectId { get; set; }
     }

@@ -67,7 +67,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task ListOrdersTestAsync()
         {
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.Admin);
             var result = await authorizedHttpClient.GetFromJsonAsync<OrderModel[]>("api/Order/ListOrders");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length > 0);
@@ -76,7 +76,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
         [TestMethod()]
         public async Task ListOwnedOrdersTestAsync()
         {
-            var authorizedHttpClient = await base.CreateAuthorizedClientAsync();
+            var authorizedHttpClient = await base.CreateAuthorizedClientAsync(Role.User);
             var result = await authorizedHttpClient.GetFromJsonAsync<OrderModel[]>("api/Order/ListOwnedOrders");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Length > 0);

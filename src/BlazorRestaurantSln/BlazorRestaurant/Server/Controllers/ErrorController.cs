@@ -2,6 +2,7 @@
 using BlazorRestaurant.DataAccess.Data;
 using BlazorRestaurant.DataAccess.Models;
 using BlazorRestaurant.Shared.Errors;
+using BlazorRestaurant.Shared.Global;
 using LinqToTwitter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -38,6 +39,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// Lists all of the errors in the system
         /// </summary>
         [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.Admin)]
         public async Task<ErrorLogModel[]> ListErrors()
         {
             var allErrors = await this.BlazorRestaurantDbContext.ErrorLog

@@ -47,6 +47,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// <param name="orderModel"></param>
         /// <returns></returns>
         [HttpPost("[action]")]
+        [Authorize(Constants.Roles.User)]
         public async Task<IActionResult> AddOrder(OrderModel orderModel)
         {
             var claims = this.HttpContextAccessor.HttpContext.User.Claims;
@@ -87,6 +88,7 @@ namespace BlazorRestaurant.Server.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("[action]")]
+        [Authorize(Roles = Constants.Roles.User)]
         public async Task<OrderModel[]> ListOwnedOrders()
         {
             var userObjectId = this.User.Claims.First(p => p.Type == Constants.Claims.ObjectIdentifier).Value;
