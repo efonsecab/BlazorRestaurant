@@ -64,7 +64,7 @@
             In charge of Configuration management
             </summary>
         </member>
-        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.#ctor(BlazorRestaurant.Server.Configuration.AzureConfiguration,BlazorRestaurant.Shared.Configuration.SystemConfiguration)">
+        <member name="M:BlazorRestaurant.Server.Controllers.ConfigurationController.#ctor(BlazorRestaurant.Server.Configuration.AzureConfiguration,BlazorRestaurant.Shared.Configuration.SystemConfigurationModel)">
             <summary>
             Creates a new instance of <see cref="T:BlazorRestaurant.Server.Controllers.ConfigurationController"/>
             <paramref name="azureConfiguration"/>

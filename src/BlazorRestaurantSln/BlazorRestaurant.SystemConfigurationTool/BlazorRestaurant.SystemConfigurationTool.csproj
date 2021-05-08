@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>b1f8ed07-bc04-42a6-9041-b8f16b2d7443</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-preview2.20160.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorRestaurant.DataAccess\BlazorRestaurant.DataAccess.csproj" />
+    <ProjectReference Include="..\BlazorRestaurant\Shared\BlazorRestaurant.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
