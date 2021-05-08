@@ -1,0 +1,129 @@
+﻿@page "/"
+
+<h1>Blazor Restaurant - System Configuration Tool</h1>
+
+@if (this.Model != null)
+{
+    <EditForm Model="this.Model" OnValidSubmit="OnValidSubmit">
+        <ObjectGraphDataAnnotationsValidator></ObjectGraphDataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="mb-3">
+            <label class="form-label" style="color:red;">@ErrorMessage</label>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" style="color:green;">@SuccessMessage</label>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Database Configuration
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Connection String</label>
+                    <InputText type="password" class="form-control" @bind-Value="Model.ConnectionString"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                System Configuration
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Error Log Power BI Url</label>
+                    <InputText class="form-control"
+                               @bind-Value="this.Model.ConfigurationData.SystemConfiguration.ErrorLogPowerBIUrl"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Data Storage Configuration
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Images Container Name</label>
+                    <InputText class="form-control"
+                               @bind-Value="this.Model.ConfigurationData.DataStorageConfiguration.ImagesContainerName"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Images Container Url</label>
+                    <InputText class="form-control"
+                               @bind-Value="this.Model.ConfigurationData.DataStorageConfiguration.ImagesContainerUrl"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                PTI.Microservices.Library Configuration
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Rapid API Key</label>
+                    <InputText class="form-control"
+                               @bind-Value="this.Model.ConfigurationData.PTIMicroservicesLibraryConfiguration.RapidApiKey"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Azure Configuration
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-header">
+                        AzureBlobStorageConfiguration
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">ConnectionString</label>
+                            <InputText type="password" class="form-control"
+                                       @bind-Value="this.Model.ConfigurationData.AzureConfiguration.AzureBlobStorageConfiguration.ConnectionString"></InputText>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        Azure Maps Configuration
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Azure Maps Key</label>
+                            <InputText class="form-control"
+                                       @bind-Value="this.Model.ConfigurationData.AzureConfiguration.AzureMapsConfiguration.Key">
+                            </InputText>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Azure Ad B2C Server App Configuration
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Client Id</label>
+                    <InputText class="form-control" @bind-Value="this.Model.ConfigurationData.AzureAdB2C.ClientId"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Domain</label>
+                    <InputText class="form-control" @bind-Value="this.Model.ConfigurationData.AzureAdB2C.Domain"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Instance</label>
+                    <InputText class="form-control" @bind-Value="this.Model.ConfigurationData.AzureAdB2C.Instance"></InputText>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">SignUpSignInPolicyId</label>
+                    <InputText class="form-control" @bind-Value="this.Model.ConfigurationData.AzureAdB2C.SignUpSignInPolicyId"></InputText>
+                </div>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Import From JSON file</label>
+            <InputFile class="form-control" OnChange="ImportFromFileAsync"></InputFile>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
+}

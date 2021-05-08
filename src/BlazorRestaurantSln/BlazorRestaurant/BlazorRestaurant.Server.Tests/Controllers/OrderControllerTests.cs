@@ -17,7 +17,7 @@ namespace BlazorRestaurant.Server.Controllers.Tests
     [TestClass()]
     public class OrderControllerTests : TestsBase
     {
-        private static Product TestProduct = new Product()
+        private static readonly Product TestProduct = new()
         {
             Name = "TEST PRODUCT",
             Description = "TEST DESC",

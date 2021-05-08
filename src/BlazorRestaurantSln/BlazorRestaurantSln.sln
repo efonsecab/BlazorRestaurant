@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Components
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorRestaurant.Common", "BlazorRestaurant.Common\BlazorRestaurant.Common.csproj", "{D11CF676-9A14-42C4-8C74-18F1B1E07470}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorRestaurant.SystemConfigurationTool", "BlazorRestaurant.SystemConfigurationTool\BlazorRestaurant.SystemConfigurationTool.csproj", "{C14F8D1C-2230-4B35-BDE9-41A93BED7003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{D11CF676-9A14-42C4-8C74-18F1B1E07470}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D11CF676-9A14-42C4-8C74-18F1B1E07470}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D11CF676-9A14-42C4-8C74-18F1B1E07470}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C14F8D1C-2230-4B35-BDE9-41A93BED7003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C14F8D1C-2230-4B35-BDE9-41A93BED7003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C14F8D1C-2230-4B35-BDE9-41A93BED7003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C14F8D1C-2230-4B35-BDE9-41A93BED7003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

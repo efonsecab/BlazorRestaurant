@@ -20,14 +20,14 @@ namespace BlazorRestaurant.Server.Controllers
     public class ConfigurationController : ControllerBase
     {
         private AzureConfiguration AzureConfiguration { get; }
-        private SystemConfiguration SystemConfiguration { get; }
+        private SystemConfigurationModel SystemConfiguration { get; }
 
         /// <summary>
         /// Creates a new instance of <see cref="ConfigurationController"/>
         /// <paramref name="azureConfiguration"/>
         /// <paramref name="systemConfiguration"/>
         /// </summary>
-        public ConfigurationController(AzureConfiguration azureConfiguration, SystemConfiguration systemConfiguration)
+        public ConfigurationController(AzureConfiguration azureConfiguration, SystemConfigurationModel systemConfiguration)
         {
             this.AzureConfiguration = azureConfiguration;
             this.SystemConfiguration = systemConfiguration;
@@ -52,7 +52,7 @@ namespace BlazorRestaurant.Server.Controllers
         [Authorize(Roles = Constants.Roles.Admin)]
         public string GetErrorLogPowerBIUrl()
         {
-            return this.SystemConfiguration.ErrorLogPowerBIUrl;
+            return this.SystemConfiguration.SystemConfiguration.ErrorLogPowerBIUrl;
         }
     }
 }

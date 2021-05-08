@@ -101,7 +101,8 @@ namespace BlazorRestaurant.Server
                 configAction.AddMaps(new[] { typeof(Startup).Assembly });
             });
 
-            SystemConfiguration systemConfiguration = Configuration.GetSection("SystemConfiguration").Get<SystemConfiguration>();
+            SystemConfigurationModel systemConfiguration = 
+                Configuration.GetSection("SystemConfiguration").Get<SystemConfigurationModel>();
             services.AddSingleton(systemConfiguration);
             ConfigureDataStorage(services);
             ConfigurePTIMicroservicesLibraryDefaults(services);
